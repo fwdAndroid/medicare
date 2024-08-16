@@ -2,6 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:medicare/screens/departments/allergy_dep.dart';
+import 'package:medicare/screens/departments/cardiolgoy_dep.dart';
+import 'package:medicare/screens/departments/dent_dep.dart';
+import 'package:medicare/screens/departments/gest_dep.dart';
+import 'package:medicare/screens/departments/gynalogy_dep.dart';
+import 'package:medicare/screens/departments/nero_dep.dart';
+import 'package:medicare/screens/departments/pedro_dep.dart';
+import 'package:medicare/screens/departments/uro_dep.dart';
 import 'package:medicare/uitls/colors.dart';
 
 class HomePage extends StatefulWidget {
@@ -271,21 +279,47 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Image.asset(
-                  "assets/nero.png",
-                  height: 95,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (builder) => NeroDep()));
+                  },
+                  child: Image.asset(
+                    "assets/nero.png",
+                    height: 95,
+                  ),
                 ),
-                Image.asset(
-                  "assets/card.png",
-                  height: 95,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (builder) => CardiolgoyDep()));
+                  },
+                  child: Image.asset(
+                    "assets/card.png",
+                    height: 95,
+                  ),
                 ),
-                Image.asset(
-                  "assets/gyn.png",
-                  height: 95,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (builder) => GynalogyDep()));
+                  },
+                  child: Image.asset(
+                    "assets/gyn.png",
+                    height: 95,
+                  ),
                 ),
-                Image.asset(
-                  "assets/ped.png",
-                  height: 95,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (builder) => PedroDep()));
+                  },
+                  child: Image.asset(
+                    "assets/ped.png",
+                    height: 95,
+                  ),
                 )
               ],
             ),
@@ -295,21 +329,45 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Image.asset(
-                  "assets/aller.png",
-                  height: 95,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (builder) => AllergyDep()));
+                  },
+                  child: Image.asset(
+                    "assets/aller.png",
+                    height: 95,
+                  ),
                 ),
-                Image.asset(
-                  "assets/dent.png",
-                  height: 95,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (builder) => DentistDep()));
+                  },
+                  child: Image.asset(
+                    "assets/dent.png",
+                    height: 95,
+                  ),
                 ),
-                Image.asset(
-                  "assets/uro.png",
-                  height: 95,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (builder) => UroDep()));
+                  },
+                  child: Image.asset(
+                    "assets/uro.png",
+                    height: 95,
+                  ),
                 ),
-                Image.asset(
-                  "assets/gestrology.png",
-                  height: 95,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (builder) => GestDep()));
+                  },
+                  child: Image.asset(
+                    "assets/gestrology.png",
+                    height: 95,
+                  ),
                 )
               ],
             )
