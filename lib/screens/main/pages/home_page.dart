@@ -10,6 +10,7 @@ import 'package:medicare/screens/departments/gynalogy_dep.dart';
 import 'package:medicare/screens/departments/nero_dep.dart';
 import 'package:medicare/screens/departments/pedro_dep.dart';
 import 'package:medicare/screens/departments/uro_dep.dart';
+import 'package:medicare/screens/details/doctor_detail.dart';
 import 'package:medicare/uitls/colors.dart';
 
 class HomePage extends StatefulWidget {
@@ -79,299 +80,401 @@ class _HomePageState extends State<HomePage> {
             )
           ],
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: white,
-                  border: InputBorder.none,
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: hintColor,
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: white,
+                    border: InputBorder.none,
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: hintColor,
+                    ),
+                    hintText: "Search by Doctor name or department",
+                    hintStyle:
+                        GoogleFonts.poppins(fontSize: 14, color: hintColor),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(4),
+                        ),
+                        borderSide: BorderSide(color: borderColor)),
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(4),
+                        ),
+                        borderSide: BorderSide(color: borderColor)),
+                    disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(4),
+                        ),
+                        borderSide: BorderSide(color: borderColor)),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(4),
+                        ),
+                        borderSide: BorderSide(color: borderColor)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(4),
+                        ),
+                        borderSide: BorderSide(color: borderColor)),
                   ),
-                  hintText: "Search by Doctor name or department",
-                  hintStyle:
-                      GoogleFonts.poppins(fontSize: 14, color: hintColor),
-                  errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(4),
-                      ),
-                      borderSide: BorderSide(color: borderColor)),
-                  focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(4),
-                      ),
-                      borderSide: BorderSide(color: borderColor)),
-                  disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(4),
-                      ),
-                      borderSide: BorderSide(color: borderColor)),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(4),
-                      ),
-                      borderSide: BorderSide(color: borderColor)),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(4),
-                      ),
-                      borderSide: BorderSide(color: borderColor)),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Services we offer',
-                style: GoogleFonts.poppins(
-                    color: appColor, fontSize: 16, fontWeight: FontWeight.w600),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Services we offer',
+                  style: GoogleFonts.poppins(
+                      color: appColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: Row(
+              Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: Row(
+                  children: [
+                    Card(
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            "assets/logo.png",
+                            height: 100,
+                            width: 100,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 8.0, top: 8, left: 8, right: 8),
+                            child: Text(
+                              'Instant \n Consultation',
+                              style: GoogleFonts.poppins(
+                                  color: appColor,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              bottom: 8.0,
+                            ),
+                            child: Text(
+                              'Start from 50\$',
+                              style: GoogleFonts.poppins(
+                                  color: textColor,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Card(
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            "assets/logo.png",
+                            height: 100,
+                            width: 100,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 8.0, top: 8, left: 8, right: 8),
+                            child: Text(
+                              'Book a \n Specialist',
+                              style: GoogleFonts.poppins(
+                                  color: appColor,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              bottom: 8.0,
+                            ),
+                            child: Text(
+                              'Start from 100\$',
+                              style: GoogleFonts.poppins(
+                                  color: textColor,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Card(
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            "assets/logo.png",
+                            height: 100,
+                            width: 100,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 8.0, top: 8, left: 8, right: 8),
+                            child: Text(
+                              'Order \n Medicine',
+                              style: GoogleFonts.poppins(
+                                  color: appColor,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              bottom: 8.0,
+                            ),
+                            child: Text(
+                              'Delivery In 1 hour',
+                              style: GoogleFonts.poppins(
+                                  color: textColor,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Card(
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          "assets/logo.png",
-                          height: 100,
-                          width: 100,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              bottom: 8.0, top: 8, left: 8, right: 8),
-                          child: Text(
-                            'Instant \n Consultation',
-                            style: GoogleFonts.poppins(
-                                color: appColor,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            bottom: 8.0,
-                          ),
-                          child: Text(
-                            'Start from 50\$',
-                            style: GoogleFonts.poppins(
-                                color: textColor,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        bottom: 8.0, top: 8, left: 8, right: 8),
+                    child: Text(
+                      'Departments',
+                      style: GoogleFonts.poppins(
+                          color: appColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600),
+                      textAlign: TextAlign.center,
                     ),
                   ),
-                  Card(
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          "assets/logo.png",
-                          height: 100,
-                          width: 100,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              bottom: 8.0, top: 8, left: 8, right: 8),
-                          child: Text(
-                            'Book a \n Specialist',
-                            style: GoogleFonts.poppins(
-                                color: appColor,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            bottom: 8.0,
-                          ),
-                          child: Text(
-                            'Start from 100\$',
-                            style: GoogleFonts.poppins(
-                                color: textColor,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        bottom: 8.0, top: 8, left: 8, right: 8),
+                    child: Text(
+                      'See All',
+                      style: GoogleFonts.poppins(
+                          color: mainColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                      textAlign: TextAlign.center,
                     ),
                   ),
-                  Card(
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          "assets/logo.png",
-                          height: 100,
-                          width: 100,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              bottom: 8.0, top: 8, left: 8, right: 8),
-                          child: Text(
-                            'Order \n Medicine',
-                            style: GoogleFonts.poppins(
-                                color: appColor,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            bottom: 8.0,
-                          ),
-                          child: Text(
-                            'Delivery In 1 hour',
-                            style: GoogleFonts.poppins(
-                                color: textColor,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (builder) => NeroDep()));
+                    },
+                    child: Image.asset(
+                      "assets/nero.png",
+                      height: 95,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (builder) => CardiolgoyDep()));
+                    },
+                    child: Image.asset(
+                      "assets/card.png",
+                      height: 95,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (builder) => GynalogyDep()));
+                    },
+                    child: Image.asset(
+                      "assets/gyn.png",
+                      height: 95,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (builder) => PedroDep()));
+                    },
+                    child: Image.asset(
+                      "assets/ped.png",
+                      height: 95,
                     ),
                   )
                 ],
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      bottom: 8.0, top: 8, left: 8, right: 8),
-                  child: Text(
-                    'Departments',
-                    style: GoogleFonts.poppins(
-                        color: appColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600),
-                    textAlign: TextAlign.center,
+              const SizedBox(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (builder) => AllergyDep()));
+                    },
+                    child: Image.asset(
+                      "assets/aller.png",
+                      height: 95,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      bottom: 8.0, top: 8, left: 8, right: 8),
-                  child: Text(
-                    'See All',
-                    style: GoogleFonts.poppins(
-                        color: mainColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600),
-                    textAlign: TextAlign.center,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (builder) => DentistDep()));
+                    },
+                    child: Image.asset(
+                      "assets/dent.png",
+                      height: 95,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (builder) => NeroDep()));
-                  },
-                  child: Image.asset(
-                    "assets/nero.png",
-                    height: 95,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (builder) => UroDep()));
+                    },
+                    child: Image.asset(
+                      "assets/uro.png",
+                      height: 95,
+                    ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (builder) => CardiolgoyDep()));
-                  },
-                  child: Image.asset(
-                    "assets/card.png",
-                    height: 95,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (builder) => GestDep()));
+                    },
+                    child: Image.asset(
+                      "assets/gestrology.png",
+                      height: 95,
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        bottom: 8.0, top: 8, left: 8, right: 8),
+                    child: Text(
+                      'Top Doctors',
+                      style: GoogleFonts.poppins(
+                          color: appColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (builder) => GynalogyDep()));
-                  },
-                  child: Image.asset(
-                    "assets/gyn.png",
-                    height: 95,
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        bottom: 8.0, top: 8, left: 8, right: 8),
+                    child: Text(
+                      'See All',
+                      style: GoogleFonts.poppins(
+                          color: mainColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (builder) => PedroDep()));
-                  },
-                  child: Image.asset(
-                    "assets/ped.png",
-                    height: 95,
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (builder) => AllergyDep()));
-                  },
-                  child: Image.asset(
-                    "assets/aller.png",
-                    height: 95,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (builder) => DentistDep()));
-                  },
-                  child: Image.asset(
-                    "assets/dent.png",
-                    height: 95,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (builder) => UroDep()));
-                  },
-                  child: Image.asset(
-                    "assets/uro.png",
-                    height: 95,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (builder) => GestDep()));
-                  },
-                  child: Image.asset(
-                    "assets/gestrology.png",
-                    height: 95,
-                  ),
-                )
-              ],
-            )
-          ],
+                ],
+              ),
+              SizedBox(
+                height: 72,
+                width: MediaQuery.of(context).size.width,
+                child: StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection("doctors")
+                        .where("uid",
+                            isNotEqualTo:
+                                FirebaseAuth.instance.currentUser!.uid)
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      if (snapshot.data!.docs.isEmpty) {
+                        return Center(
+                          child: Text(
+                            "No Doctor Available",
+                            style: TextStyle(color: black),
+                          ),
+                        );
+                      }
+                      return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            final List<DocumentSnapshot> documents =
+                                snapshot.data!.docs;
+                            final Map<String, dynamic> data =
+                                documents[index].data() as Map<String, dynamic>;
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (builder) => DoctorDetail(
+                                              photoURL: data['photoURL'],
+                                              fullName: data['fullName'],
+                                              rate: data['rate'],
+                                              hospitalName:
+                                                  data['hospitalName'],
+                                              experience: data['experience'],
+                                              review: data['review'],
+                                              about: data['about'],
+                                            )));
+                              },
+                              child: SizedBox(
+                                height: 150,
+                                width: 150,
+                                child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: CircleAvatar(
+                                      backgroundImage: NetworkImage(
+                                        data['photoURL'],
+                                      ),
+                                    )),
+                              ),
+                            );
+                          });
+                    }),
+              ),
+            ],
+          ),
         ));
   }
 }
