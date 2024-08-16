@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:medicare/screens/auth/signup_screen.dart';
 import 'package:medicare/screens/main/main_dashboard.dart';
+import 'package:medicare/services/auth_methods.dart';
 import 'package:medicare/uitls/colors.dart';
+import 'package:medicare/uitls/message_utils.dart';
 import 'package:medicare/widgets/save_button.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 
@@ -17,6 +21,16 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   bool isChecked = false;
+  bool passwordVisible = false;
+  bool isLoading = false;
+  bool isGoogle = false;
+
+  @override
+  void initState() {
+    super.initState();
+    passwordVisible = true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,9 +118,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 margin: const EdgeInsets.only(left: 10, right: 10),
                 padding: const EdgeInsets.all(8),
                 child: TextFormField(
+                  obscureText: passwordVisible,
                   controller: _passwordController,
                   style: GoogleFonts.plusJakartaSans(color: black),
                   decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        icon: Icon(passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        onPressed: () {
+                          setState(
+                            () {
+                              passwordVisible = !passwordVisible;
+                            },
+                          );
+                        },
+                      ),
                       enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: borderColor)),
                       errorBorder: OutlineInputBorder(
@@ -151,36 +178,95 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SaveButton(
-              title: "Login",
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (builder) => MainDashboard()));
-              },
-            ),
-          ),
+          isLoading
+              ? Center(
+                  child: CircularProgressIndicator(
+                    color: mainColor,
+                  ),
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SaveButton(
+                    title: "Login",
+                    onTap: () async {
+                      if (_emailController.text.isEmpty ||
+                          _passwordController.text.isEmpty) {
+                        showMessageBar(
+                            "Email and Password is Required", context);
+                      } else {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        await AuthMethods().loginUpUser(
+                          email: _emailController.text.trim(),
+                          pass: _emailController.text.trim(),
+                        );
+
+                        setState(() {
+                          isLoading = false;
+                        });
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (builder) => MainDashboard()));
+                      }
+                    },
+                  ),
+                ),
           Image.asset(
             "assets/or.png",
             height: 20,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8),
-            child: SocialLoginButton(
-              text: "Continue with Google",
-              buttonType: SocialLoginButtonType.google,
-              onPressed: () {},
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8),
-            child: SocialLoginButton(
-              text: "Continue with Facebook",
-              buttonType: SocialLoginButtonType.facebook,
-              onPressed: () {},
-            ),
-          ),
+          isGoogle
+              ? Center(
+                  child: CircularProgressIndicator(
+                    color: mainColor,
+                  ),
+                )
+              : Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right: 8),
+                  child: SocialLoginButton(
+                    text: "Continue with Google",
+                    buttonType: SocialLoginButtonType.google,
+                    onPressed: () {
+                      AuthMethods().signInWithGoogle().then((value) async {
+                        setState(() {
+                          isGoogle = true;
+                        });
+                        User? user = FirebaseAuth.instance.currentUser;
+
+                        // Check if user data exists in Firestore
+
+                        // If user data doesn't exist, store it
+
+                        // Set user data in Firestore
+                        await FirebaseFirestore.instance
+                            .collection("users")
+                            .doc(user?.uid)
+                            .set({
+                          "photoURL": user?.photoURL?.toString(),
+                          "email": user?.email,
+                          "isblocked": false,
+                          "fullName": user?.displayName,
+                          "contactNumber":
+                              user?.phoneNumber ?? "No Number Available",
+                          "uid": user?.uid,
+                          "password": "Auto Take Password",
+                          "rate": 0,
+                          "review": {}
+                        });
+
+                        setState(() {
+                          isGoogle = false;
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (builder) => MainDashboard()));
+                        });
+                      });
+                    },
+                  ),
+                ),
           GestureDetector(
             onTap: () {
               Navigator.push(context,
