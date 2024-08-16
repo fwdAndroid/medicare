@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:medicare/uitls/colors.dart';
@@ -14,24 +16,54 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CircleAvatar(),
-          ),
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Hello!',
-                style: GoogleFonts.poppins(color: appColor, fontSize: 14),
-              ),
-              Text(
-                'Zenifer Aniston',
-                style: GoogleFonts.poppins(
-                    color: appColor, fontSize: 16, fontWeight: FontWeight.w600),
-              ),
-            ],
-          ),
+          leading: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("users")
+                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .snapshots(),
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                if (!snapshot.hasData || snapshot.data == null) {
+                  return Center(child: Text('No data available'));
+                }
+                var snap = snapshot.data;
+                return CircleAvatar(
+                  backgroundImage: NetworkImage(snap['photoURL']),
+                );
+              }),
+          title: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("users")
+                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .snapshots(),
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                if (!snapshot.hasData || snapshot.data == null) {
+                  return Center(child: Text('No data available'));
+                }
+                var snap = snapshot.data;
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Hello!",
+                      style: GoogleFonts.poppins(color: appColor, fontSize: 14),
+                    ),
+                    Text(
+                      snap['fullName'],
+                      style: GoogleFonts.poppins(
+                          color: appColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                );
+              }),
+          automaticallyImplyLeading: false,
           actions: [
             Padding(
               padding: const EdgeInsets.all(8.0),
