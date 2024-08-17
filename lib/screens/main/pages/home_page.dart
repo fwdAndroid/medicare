@@ -411,8 +411,8 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               SizedBox(
-                height: 100,
-                width: 400,
+                height: 236,
+                width: MediaQuery.of(context).size.width,
                 child: StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection("doctors")
@@ -467,16 +467,96 @@ class _HomePageState extends State<HomePage> {
                                               doctorId: data['uid'],
                                             )));
                               },
-                              child: SizedBox(
-                                height: 150,
-                                width: 150,
-                                child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: CircleAvatar(
-                                      backgroundImage: NetworkImage(
-                                        data['photoURL'],
+                              child: Card(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      height: 140,
+                                      child: Stack(
+                                        children: [
+                                          Image.network(
+                                            data['photoURL'],
+                                            width: 100,
+                                            height: 100,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Icon(
+                                                  Icons.circle,
+                                                  color: mainColor,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        ],
                                       ),
-                                    )),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 4.0, top: 8, right: 4),
+                                      child: Text(
+                                        data['fullName'],
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 12, color: appColor),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 4.0, right: 4),
+                                      child: Text(
+                                        data['department'],
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 12, color: textColor),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 4.0, right: 4, bottom: 4),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                Icons.star,
+                                                color: Colors.yellow,
+                                              ),
+                                              const SizedBox(
+                                                width: 6,
+                                              ),
+                                              Text(
+                                                "5.0",
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 12,
+                                                    color: textColor),
+                                              ),
+                                              Text(
+                                                "(150)",
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 12,
+                                                    color: textColor),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            width: 61,
+                                          ),
+                                          Align(
+                                              alignment: Alignment.topRight,
+                                              child:
+                                                  Icon(Icons.favorite_outline))
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             );
                           });
