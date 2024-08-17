@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:medicare/uitls/colors.dart';
@@ -22,82 +24,145 @@ class _AppointmentHistoryState extends State<AppointmentHistory> {
           style: GoogleFonts.poppins(fontSize: 18, color: appColor),
         ),
       ),
-      body: ListView.builder(itemBuilder: (context, index) {
-        return Card(
-          elevation: 1,
-          color: white,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8),
-                    child: Image.asset(
-                      "assets/newlogo.png",
-                      height: 90,
-                      width: 90,
+      body: StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection("appointments")
+              .where("patientId",
+                  isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (snapshot.data!.docs.isEmpty) {
+              return Center(
+                child: Text(
+                  "No Appointment Available",
+                  style: TextStyle(color: black),
+                ),
+              );
+            }
+            return ListView.builder(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) {
+                  final List<DocumentSnapshot> documents = snapshot.data!.docs;
+                  final Map<String, dynamic> data =
+                      documents[index].data() as Map<String, dynamic>;
+                  return Card(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 170,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Image.network(
+                                      data['doctorPhoto'],
+                                      height: 90,
+                                      width: 90,
+                                    ),
+                                    const SizedBox(
+                                      width: 7,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          data['doctorName'],
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 16,
+                                              color: appColor,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                        Text(
+                                          "+82312412414424",
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 14,
+                                              color: appColor,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                        const SizedBox(
+                                          height: 30,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              data['appointmentDate'],
+                                              style: GoogleFonts.poppins(
+                                                  color: dateColor,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w300),
+                                            ),
+                                            const SizedBox(
+                                              width: 6,
+                                            ),
+                                            Text(
+                                              "|",
+                                              style: GoogleFonts.poppins(
+                                                  color: dateColor,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w300),
+                                            ),
+                                            const SizedBox(
+                                              width: 6,
+                                            ),
+                                            Text(
+                                              data['appointmentTime'],
+                                              style: GoogleFonts.poppins(
+                                                  color: dateColor,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w300),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          height: 45,
+                                          width: 45,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: white,
+                                          ),
+                                          child: Center(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Icon(
+                                                size: 20,
+                                                Icons.arrow_forward_ios,
+                                                color: textColor,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Dr. Alex Zender",
-                        style:
-                            GoogleFonts.poppins(fontSize: 16, color: appColor),
-                      ),
-                      Text(
-                        "Cardiology",
-                        style:
-                            GoogleFonts.poppins(fontSize: 14, color: appColor),
-                      ),
-                      Text(
-                        "MBBS, FCPS(Cardiology)",
-                        style:
-                            GoogleFonts.poppins(fontSize: 14, color: textColor),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "23 Sept 2023",
-                            style: GoogleFonts.poppins(
-                                fontSize: 14, color: dateColor),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            "|",
-                            style: GoogleFonts.poppins(
-                                fontSize: 14, color: dateColor),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            "09:30 PM",
-                            style: GoogleFonts.poppins(
-                                fontSize: 14, color: dateColor),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8),
-                    child: Image.asset(
-                      "assets/move.png",
-                      height: 40,
-                      width: 40,
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-        );
-      }),
+                  );
+                });
+          }),
     );
   }
 }
