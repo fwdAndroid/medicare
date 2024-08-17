@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:medicare/screens/appointments/appointment_begin.dart';
 import 'package:medicare/uitls/colors.dart';
 import 'package:medicare/widgets/save_button.dart';
 
@@ -14,6 +15,7 @@ class DoctorDetail extends StatefulWidget {
   final numberreviews;
   final consultantFees;
   final price;
+  final department;
   DoctorDetail({
     super.key,
     required this.fullName,
@@ -23,6 +25,7 @@ class DoctorDetail extends StatefulWidget {
     required this.hospitalName,
     required this.about,
     required this.numberreviews,
+    required this.department,
     required this.price,
     required this.consultantFees,
     required this.photoURL,
@@ -358,8 +361,29 @@ class _DoctorDetailState extends State<DoctorDetail> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: SaveButton(title: "Make Appointment", onTap: () {}),
-                )
+                  child: SaveButton(
+                      title: "Make Appointment",
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (builder) => AppointmentBegin(
+                                      photoURL: widget.photoURL,
+                                      fullName: widget.fullName,
+                                      rate: widget.rate,
+                                      hospitalName: widget.hospitalName,
+                                      experience: widget.experience,
+                                      review: widget.review,
+                                      about: widget.about,
+                                      department: widget.department,
+                                      price: widget.price.toString(),
+                                      consultantFees:
+                                          widget.consultantFees.toString(),
+                                      numberreviews:
+                                          widget.numberreviews.toString(),
+                                    )));
+                      }),
+                ),
               ],
             ),
           ),

@@ -463,6 +463,7 @@ class _HomePageState extends State<HomePage> {
                                               numberreviews:
                                                   data['numberreviews']
                                                       .toString(),
+                                              department: data['department'],
                                             )));
                               },
                               child: SizedBox(
