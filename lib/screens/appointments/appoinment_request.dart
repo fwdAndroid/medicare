@@ -323,8 +323,27 @@ class _AppoinmentRequestState extends State<AppoinmentRequest> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (builder) =>
-                                    AppointmentRequestDone()));
+                                builder: (builder) => AppointmentRequestDone(
+                                      appointmentDate: _dateController.text,
+                                      appointmentId: uuid,
+                                      appointmentStatus: "send",
+                                      appointmentTime: _timeController.text,
+                                      doctorDepartment: widget.department,
+                                      doctorExperience: widget.experience,
+                                      doctorFees: widget.price,
+                                      doctorName: widget.fullName,
+                                      doctorPhoto: widget.photoURL,
+                                      doctorid: widget.doctorId,
+                                      patientDob: widget.dob,
+                                      patientDocument: photoURL,
+                                      patientGender: widget.gender,
+                                      paitientName: widget.paitientName,
+                                      patientId: FirebaseAuth
+                                          .instance.currentUser!.uid,
+                                      patientProblem: widget.problem,
+                                      rate: widget.rate,
+                                      review: widget.review,
+                                    )));
                       }
                     },
                   ),
