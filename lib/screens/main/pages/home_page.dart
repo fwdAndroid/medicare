@@ -411,8 +411,8 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               SizedBox(
-                height: 72,
-                width: MediaQuery.of(context).size.width,
+                height: 100,
+                width: 400,
                 child: StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection("doctors")
@@ -456,6 +456,13 @@ class _HomePageState extends State<HomePage> {
                                               experience: data['experience'],
                                               review: data['review'],
                                               about: data['about'],
+                                              price: data['price'].toString(),
+                                              consultantFees:
+                                                  data['consultantFees']
+                                                      .toString(),
+                                              numberreviews:
+                                                  data['numberreviews']
+                                                      .toString(),
                                             )));
                               },
                               child: SizedBox(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:medicare/uitls/colors.dart';
+import 'package:medicare/widgets/save_button.dart';
 
 class DoctorDetail extends StatefulWidget {
   final fullName;
@@ -10,6 +11,9 @@ class DoctorDetail extends StatefulWidget {
   final rate;
   final review;
   final hospitalName;
+  final numberreviews;
+  final consultantFees;
+  final price;
   DoctorDetail({
     super.key,
     required this.fullName,
@@ -18,6 +22,9 @@ class DoctorDetail extends StatefulWidget {
     required this.review,
     required this.hospitalName,
     required this.about,
+    required this.numberreviews,
+    required this.price,
+    required this.consultantFees,
     required this.photoURL,
   });
 
@@ -136,9 +143,9 @@ class _DoctorDetailState extends State<DoctorDetail> {
                           ),
                           Text(
                             widget.experience.toString() + " " + "Years",
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                                 fontSize: 18,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w600,
                                 color: appColor),
                           ),
                           Text(
@@ -172,13 +179,49 @@ class _DoctorDetailState extends State<DoctorDetail> {
                           ),
                           Text(
                             widget.rate.toString(),
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                                 fontSize: 18,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w600,
                                 color: appColor),
                           ),
                           Text(
                             "Rating",
+                            style: GoogleFonts.inter(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: textColor),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            height: 45,
+                            width: 45,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: circle,
+                            ),
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(
+                                  size: 20,
+                                  Icons.reviews,
+                                  color: textColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            widget.numberreviews.toString(),
+                            style: GoogleFonts.inter(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: appColor),
+                          ),
+                          Text(
+                            "Reviews",
                             style: GoogleFonts.inter(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
@@ -195,12 +238,12 @@ class _DoctorDetailState extends State<DoctorDetail> {
                     "About Doctor",
                     style: GoogleFonts.poppins(
                         fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w800,
                         color: appColor),
                   ),
                 ),
                 SizedBox(
-                  height: 200,
+                  height: 150,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8, top: 5),
                     child: Text(
@@ -211,16 +254,113 @@ class _DoctorDetailState extends State<DoctorDetail> {
                           color: dateColor),
                     ),
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 80,
+                    width: 360,
+                    decoration: BoxDecoration(
+                      color: circle,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: dividerColor,
+                      ),
+                    ),
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Consultation fee",
+                                style: GoogleFonts.poppins(
+                                  color: dateColor,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "\$",
+                                    style: GoogleFonts.poppins(
+                                        color: appColor,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  Text(
+                                    widget.consultantFees.toString(),
+                                    style: GoogleFonts.poppins(
+                                        color: appColor,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  Text(
+                                    "/Consultation fee",
+                                    style: GoogleFonts.poppins(
+                                      color: dateColor,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Follow-up fee",
+                                style: GoogleFonts.poppins(
+                                  color: dateColor,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "\$",
+                                    style: GoogleFonts.poppins(
+                                        color: appColor,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  Text(
+                                    widget.price.toString(),
+                                    style: GoogleFonts.poppins(
+                                        color: appColor,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  Text(
+                                    "(within 15 Days)",
+                                    style: GoogleFonts.poppins(
+                                      color: dateColor,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SaveButton(title: "Make Appointment", onTap: () {}),
                 )
               ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "Doctor Services",
-              style: GoogleFonts.poppins(
-                  fontSize: 16, fontWeight: FontWeight.w500, color: appColor),
             ),
           ),
         ],
