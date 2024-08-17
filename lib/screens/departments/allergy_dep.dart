@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:medicare/screens/details/doctor_detail.dart';
 import 'package:medicare/uitls/colors.dart';
 import 'package:medicare/widgets/service_widget.dart';
 
@@ -62,22 +63,25 @@ class _AllergyDepState extends State<AllergyDep> {
                       documents[index].data() as Map<String, dynamic>;
                   return ServiceWidget(
                     onTap: () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (builder) => MyServiceDetail(
-                      //               description: data['description'],
-                      //               providerName: data['providerName'],
-                      //               serviceCategory: data['serviceCategory'],
-                      //               serviceDiscount:
-                      //                   data['serviceDiscount'].toString(),
-                      //               serviceImage: data['serviceImage'],
-                      //               serviceLocation: data['serviceLocation'],
-                      //               serviceName: data['serviceName'],
-                      //               servicePrice: data['servicePrice'],
-                      //               uid: data['uid'],
-                      //               uuid: data['uuid'],
-                      //             )));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (builder) => DoctorDetail(
+                                    photoURL: data['photoURL'],
+                                    fullName: data['fullName'],
+                                    rate: data['rate'],
+                                    hospitalName: data['hospitalName'],
+                                    experience: data['experience'],
+                                    review: data['review'],
+                                    about: data['about'],
+                                    price: data['price'].toString(),
+                                    consultantFees:
+                                        data['consultantFees'].toString(),
+                                    numberreviews:
+                                        data['numberreviews'].toString(),
+                                    department: data['department'],
+                                    doctorId: data['uid'],
+                                  )));
                     },
                     department: data['department'],
                     doctorName: data['fullName'],
