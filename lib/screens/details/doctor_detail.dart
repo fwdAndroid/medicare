@@ -14,6 +14,7 @@ class DoctorDetail extends StatefulWidget {
   final hospitalName;
   final numberreviews;
   final consultantFees;
+  final doctorId;
   final price;
   final department;
   DoctorDetail({
@@ -26,6 +27,7 @@ class DoctorDetail extends StatefulWidget {
     required this.about,
     required this.numberreviews,
     required this.department,
+    required this.doctorId,
     required this.price,
     required this.consultantFees,
     required this.photoURL,
@@ -376,6 +378,7 @@ class _DoctorDetailState extends State<DoctorDetail> {
                                       review: widget.review,
                                       about: widget.about,
                                       department: widget.department,
+                                      doctorId: widget.doctorId,
                                       price: widget.price.toString(),
                                       consultantFees:
                                           widget.consultantFees.toString(),

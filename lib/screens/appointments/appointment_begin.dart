@@ -7,6 +7,7 @@ import 'package:medicare/screens/appointments/appoinment_request.dart';
 import 'package:medicare/uitls/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:medicare/uitls/image_utils.dart';
+import 'package:medicare/uitls/message_utils.dart';
 import 'package:medicare/widgets/save_button.dart';
 import 'package:medicare/widgets/text_form_field.dart';
 
@@ -14,6 +15,7 @@ class AppointmentBegin extends StatefulWidget {
   final fullName;
   final experience;
   final about;
+  final doctorId;
   final department;
   final photoURL;
   int rate;
@@ -26,6 +28,7 @@ class AppointmentBegin extends StatefulWidget {
       {super.key,
       required this.about,
       required this.consultantFees,
+      required this.doctorId,
       required this.experience,
       required this.fullName,
       required this.hospitalName,
@@ -341,30 +344,44 @@ class _AppointmentBeginState extends State<AppointmentBegin> {
                 ),
               ),
             ),
-            SaveButton(
-                title: "Next",
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (builder) => AppoinmentRequest(
-                              file: _image,
-                              about: widget.about,
-                              consultantFees: int.parse(widget.consultantFees),
-                              department: widget.department,
-                              dob: _dateController.text,
-                              experience: widget.experience,
-                              fullName: widget.fullName,
-                              gender: _selectedGender,
-                              hospitalName: widget.hospitalName,
-                              numberreviews: int.parse(widget.numberreviews),
-                              paitientName: _paitnetNameController.text,
-                              photoURL: widget.photoURL,
-                              price: int.parse(widget.price),
-                              problem: _aboutController.text,
-                              rate: widget.rate,
-                              review: widget.review)));
-                })
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SaveButton(
+                  title: "Next",
+                  onTap: () {
+                    if (_paitnetNameController.text.isEmpty ||
+                        _aboutController.text.isEmpty ||
+                        _dateController.text.isEmpty) {
+                      showMessageBar(
+                          "Patient Name, Date of Birth and Patient Issue is required ",
+                          context);
+                    } else {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (builder) => AppoinmentRequest(
+                                  file: _image,
+                                  about: widget.about,
+                                  doctorId: widget.doctorId,
+                                  consultantFees:
+                                      int.parse(widget.consultantFees),
+                                  department: widget.department,
+                                  dob: _dateController.text,
+                                  experience: widget.experience,
+                                  fullName: widget.fullName,
+                                  gender: _selectedGender,
+                                  hospitalName: widget.hospitalName,
+                                  numberreviews:
+                                      int.parse(widget.numberreviews),
+                                  paitientName: _paitnetNameController.text,
+                                  photoURL: widget.photoURL,
+                                  price: int.parse(widget.price),
+                                  problem: _aboutController.text,
+                                  rate: widget.rate,
+                                  review: widget.review)));
+                    }
+                  }),
+            )
           ],
         ),
       ),

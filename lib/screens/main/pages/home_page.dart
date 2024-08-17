@@ -464,6 +464,7 @@ class _HomePageState extends State<HomePage> {
                                                   data['numberreviews']
                                                       .toString(),
                                               department: data['department'],
+                                              doctorId: data['uid'],
                                             )));
                               },
                               child: SizedBox(
