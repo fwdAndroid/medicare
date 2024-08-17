@@ -6,7 +6,6 @@ import 'package:medicare/uitls/colors.dart';
 // ignore: must_be_immutable
 class ServiceWidget extends StatelessWidget {
   VoidCallback onTap;
-  String titleText;
   String priceTitle;
   String descTitle;
   String department;
@@ -16,7 +15,6 @@ class ServiceWidget extends StatelessWidget {
       {super.key,
       required this.onTap,
       required this.department,
-      required this.titleText,
       required this.descTitle,
       required this.doctorName,
       required this.doctorPhoto,
@@ -49,20 +47,6 @@ class ServiceWidget extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
                     color: mainColor),
-              ),
-              Row(
-                children: [
-                  Text(
-                    "Service Name: ",
-                    style: GoogleFonts.manrope(
-                        fontWeight: FontWeight.bold, fontSize: 14),
-                  ),
-                  Text(
-                    titleText,
-                    style: GoogleFonts.manrope(
-                        fontWeight: FontWeight.bold, fontSize: 14),
-                  ),
-                ],
               ),
               Row(
                 children: [

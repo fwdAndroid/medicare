@@ -37,7 +37,7 @@ class _CardiolgoyDepState extends State<CardiolgoyDep> {
       ),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance
-              .collection("doctorServices")
+              .collection("doctors")
               .where("department", isEqualTo: "Cardiology")
               .snapshots(),
           builder: (context, snapshot) {
@@ -49,7 +49,7 @@ class _CardiolgoyDepState extends State<CardiolgoyDep> {
             if (snapshot.data!.docs.isEmpty) {
               return Center(
                 child: Text(
-                  "No Service Available",
+                  "No Cardiology Doctor Available",
                   style: TextStyle(color: black),
                 ),
               );
@@ -80,11 +80,10 @@ class _CardiolgoyDepState extends State<CardiolgoyDep> {
                       //             )));
                     },
                     department: data['department'],
-                    doctorName: data['doctorName'],
-                    doctorPhoto: data['doctorPhoto'],
-                    titleText: data['serviceName'],
-                    descTitle: data['description'],
-                    priceTitle: "\$" + data['servicePrice'].toString(),
+                    doctorName: data['fullName'],
+                    doctorPhoto: data['photoURL'],
+                    descTitle: data['about'],
+                    priceTitle: "\$" + data['price'].toString(),
                   );
                 });
           }),

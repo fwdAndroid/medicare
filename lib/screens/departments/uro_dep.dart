@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:medicare/uitls/colors.dart';
@@ -38,7 +37,7 @@ class _UroDepState extends State<UroDep> {
       ),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance
-              .collection("doctorServices")
+              .collection("doctors")
               .where("department", isEqualTo: "Urology")
               .snapshots(),
           builder: (context, snapshot) {
@@ -50,7 +49,7 @@ class _UroDepState extends State<UroDep> {
             if (snapshot.data!.docs.isEmpty) {
               return Center(
                 child: Text(
-                  "No Service Available",
+                  "No Urology Doctor Available",
                   style: TextStyle(color: black),
                 ),
               );
@@ -81,11 +80,10 @@ class _UroDepState extends State<UroDep> {
                       //             )));
                     },
                     department: data['department'],
-                    doctorName: data['doctorName'],
-                    doctorPhoto: data['doctorPhoto'],
-                    titleText: data['serviceName'],
-                    descTitle: data['description'],
-                    priceTitle: "\$" + data['servicePrice'].toString(),
+                    doctorName: data['fullName'],
+                    doctorPhoto: data['photoURL'],
+                    descTitle: data['about'],
+                    priceTitle: "\$" + data['price'].toString(),
                   );
                 });
           }),

@@ -37,7 +37,7 @@ class _GestDepState extends State<GestDep> {
       ),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance
-              .collection("doctorServices")
+              .collection("doctors")
               .where("department", isEqualTo: "Gastrology")
               .snapshots(),
           builder: (context, snapshot) {
@@ -49,7 +49,7 @@ class _GestDepState extends State<GestDep> {
             if (snapshot.data!.docs.isEmpty) {
               return Center(
                 child: Text(
-                  "No Service Available",
+                  "No Gastrology Doctor Available",
                   style: TextStyle(color: black),
                 ),
               );
@@ -80,11 +80,10 @@ class _GestDepState extends State<GestDep> {
                       //             )));
                     },
                     department: data['department'],
-                    doctorName: data['doctorName'],
-                    doctorPhoto: data['doctorPhoto'],
-                    titleText: data['serviceName'],
-                    descTitle: data['description'],
-                    priceTitle: "\$" + data['servicePrice'].toString(),
+                    doctorName: data['fullName'],
+                    doctorPhoto: data['photoURL'],
+                    descTitle: data['about'],
+                    priceTitle: "\$" + data['price'].toString(),
                   );
                 });
           }),

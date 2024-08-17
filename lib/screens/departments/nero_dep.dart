@@ -37,7 +37,7 @@ class _NeroDepState extends State<NeroDep> {
       ),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance
-              .collection("doctorServices")
+              .collection("doctors")
               .where("department", isEqualTo: "Neurology")
               .snapshots(),
           builder: (context, snapshot) {
@@ -49,7 +49,7 @@ class _NeroDepState extends State<NeroDep> {
             if (snapshot.data!.docs.isEmpty) {
               return Center(
                 child: Text(
-                  "No Service Available",
+                  "No Neurology Doctor Available",
                   style: TextStyle(color: black),
                 ),
               );
@@ -80,11 +80,10 @@ class _NeroDepState extends State<NeroDep> {
                       //             )));
                     },
                     department: data['department'],
-                    doctorName: data['doctorName'],
-                    doctorPhoto: data['doctorPhoto'],
-                    titleText: data['serviceName'],
-                    descTitle: data['description'],
-                    priceTitle: "\$" + data['servicePrice'].toString(),
+                    doctorName: data['fullName'],
+                    doctorPhoto: data['photoURL'],
+                    descTitle: data['about'],
+                    priceTitle: "\$" + data['price'].toString(),
                   );
                 });
           }),
