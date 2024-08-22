@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:medicare/screens/videocall/video_call.dart';
 import 'package:medicare/uitls/colors.dart';
 
 class AppointmentDetail extends StatefulWidget {
@@ -53,6 +54,24 @@ class _AppointmentDetailState extends State<AppointmentDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (builder) => VideoCall(
+                              friendName: widget.doctorName,
+                              callingid: widget.doctorid)));
+                },
+                icon: Icon(
+                  Icons.video_call,
+                  color: mainColor,
+                )),
+          )
+        ],
         centerTitle: true,
         title: Text(
           "Appointment History",
