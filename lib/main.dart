@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:medicare/firebase_options.dart';
 import 'package:medicare/responsive/responsive_layout.dart';
 import 'package:medicare/screens/splash_screen.dart';
+import 'package:medicare/website_medicare/web_screens/web_auth/web_sign_in.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
