@@ -161,7 +161,7 @@ class _FormSectionState extends State<_FormSection> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (builder) => MainDashboard()));
+                              builder: (builder) => MainDashboardWeb()));
                     }
                   },
                 ),
