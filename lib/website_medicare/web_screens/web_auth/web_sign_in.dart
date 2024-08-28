@@ -7,6 +7,8 @@ import 'package:medicare/services/auth_methods.dart';
 import 'package:medicare/uitls/colors.dart';
 import 'package:medicare/uitls/message_utils.dart';
 import 'package:medicare/website_medicare/web_screens/web_auth/web_forgot_password.dart';
+import 'package:medicare/website_medicare/web_screens/web_auth/web_signup.dart';
+import 'package:medicare/website_medicare/web_screens/web_home/web_main_dashboard.dart';
 import 'package:medicare/widgets/save_button.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 
@@ -214,7 +216,7 @@ class _FormSectionState extends State<_FormSection> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (builder) => MainDashboard()));
+                                  builder: (builder) => MainDashboardWeb()));
                         });
                       });
                     },
@@ -236,6 +238,28 @@ class _FormSectionState extends State<_FormSection> {
                   },
                   child: Text(
                     "Forgot Password",
+                    style: GoogleFonts.dmSans(
+                        color: mainColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Container(
+              margin: const EdgeInsets.only(right: 25),
+              child: SizedBox(
+                width: 154,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (builder) => WebSignup()));
+                  },
+                  child: Text(
+                    "Create Account",
                     style: GoogleFonts.dmSans(
                         color: mainColor,
                         fontSize: 14,
