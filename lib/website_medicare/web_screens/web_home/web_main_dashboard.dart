@@ -1,16 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:medicare/screens/departments/allergy_dep.dart';
 import 'package:medicare/screens/departments/cardiolgoy_dep.dart';
-import 'package:medicare/screens/departments/dent_dep.dart';
-import 'package:medicare/screens/departments/gest_dep.dart';
 import 'package:medicare/screens/departments/gynalogy_dep.dart';
 import 'package:medicare/screens/departments/nero_dep.dart';
-import 'package:medicare/screens/departments/pedro_dep.dart';
-import 'package:medicare/screens/departments/uro_dep.dart';
-import 'package:medicare/screens/details/doctor_detail.dart';
 import 'package:medicare/uitls/colors.dart';
 import 'package:medicare/website_medicare/web_detail/web_doctor_detail.dart';
 import 'package:medicare/website_medicare/web_widgets/header_widget.dart';

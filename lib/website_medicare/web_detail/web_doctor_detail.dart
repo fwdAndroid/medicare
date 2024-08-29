@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:medicare/screens/appointments/appointment_begin.dart';
 import 'package:medicare/uitls/colors.dart';
+import 'package:medicare/website_medicare/image_select.dart';
+import 'package:medicare/website_medicare/web_appointments/appointment_begin_web.dart';
 import 'package:medicare/widgets/save_button.dart';
 
 class WebDoctorDetail extends StatefulWidget {
@@ -41,59 +43,83 @@ class _WebDoctorDetailState extends State<WebDoctorDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: mainColor,
-      appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              height: 45,
-              width: 45,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: white,
-              ),
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    size: 20,
-                    Icons.arrow_back_ios_new,
-                    color: textColor,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-        iconTheme: IconThemeData(color: white),
-        backgroundColor: mainColor,
-      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CircleAvatar(
-                radius: 60,
-                backgroundImage: NetworkImage(widget.photoURL),
-              ),
+          Expanded(
+            child: Row(
+              children: [
+                FormSection(
+                  fullName: widget.fullName,
+                  consultantFees: widget.consultantFees.toString(),
+                  experience: widget.experience,
+                  rate: widget.rate,
+                  review: widget.review,
+                  hospitalName: widget.hospitalName.toString(),
+                  about: widget.about,
+                  numberreviews: widget.numberreviews.toString(),
+                  department: widget.department,
+                  doctorId: widget.doctorId,
+                  photoURL: widget.photoURL,
+                  price: widget.price.toString(),
+                ),
+                ImageSelection(),
+              ],
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(top: 2),
-            decoration: BoxDecoration(
-              color: white,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+        ],
+      ),
+    );
+  }
+}
+
+class FormSection extends StatelessWidget {
+  final fullName;
+  final experience;
+  final about;
+  final photoURL;
+  final rate;
+  final review;
+  final hospitalName;
+  final numberreviews;
+  final consultantFees;
+  final doctorId;
+  final price;
+  final department;
+  const FormSection({
+    super.key,
+    required this.fullName,
+    required this.experience,
+    required this.rate,
+    required this.review,
+    required this.hospitalName,
+    required this.about,
+    required this.numberreviews,
+    required this.department,
+    required this.doctorId,
+    required this.price,
+    required this.consultantFees,
+    required this.photoURL,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 448,
+      padding: const EdgeInsets.symmetric(horizontal: 50),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CircleAvatar(
+                  radius: 60,
+                  backgroundImage: NetworkImage(photoURL),
+                ),
+              ),
             ),
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 1.41,
-            child: Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Center(
@@ -101,7 +127,7 @@ class _WebDoctorDetailState extends State<WebDoctorDetail> {
                     padding:
                         const EdgeInsets.only(left: 8.0, right: 8, top: 17),
                     child: Text(
-                      widget.fullName,
+                      fullName,
                       style: GoogleFonts.poppins(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
@@ -113,7 +139,7 @@ class _WebDoctorDetailState extends State<WebDoctorDetail> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8, top: 8),
                     child: Text(
-                      widget.hospitalName,
+                      hospitalName,
                       style: GoogleFonts.poppins(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
@@ -147,7 +173,7 @@ class _WebDoctorDetailState extends State<WebDoctorDetail> {
                             ),
                           ),
                           Text(
-                            widget.experience.toString() + " " + "Years",
+                            experience.toString() + " " + "Years",
                             style: GoogleFonts.inter(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -183,7 +209,7 @@ class _WebDoctorDetailState extends State<WebDoctorDetail> {
                             ),
                           ),
                           Text(
-                            widget.rate.toString(),
+                            rate.toString(),
                             style: GoogleFonts.inter(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -219,7 +245,7 @@ class _WebDoctorDetailState extends State<WebDoctorDetail> {
                             ),
                           ),
                           Text(
-                            widget.numberreviews.toString(),
+                            numberreviews.toString(),
                             style: GoogleFonts.inter(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -252,7 +278,7 @@ class _WebDoctorDetailState extends State<WebDoctorDetail> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8, top: 5),
                     child: Text(
-                      widget.about,
+                      about,
                       style: GoogleFonts.poppins(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -299,7 +325,7 @@ class _WebDoctorDetailState extends State<WebDoctorDetail> {
                                         fontWeight: FontWeight.w700),
                                   ),
                                   Text(
-                                    widget.consultantFees.toString(),
+                                    consultantFees.toString(),
                                     style: GoogleFonts.poppins(
                                         color: appColor,
                                         fontSize: 16,
@@ -339,7 +365,7 @@ class _WebDoctorDetailState extends State<WebDoctorDetail> {
                                         fontWeight: FontWeight.w700),
                                   ),
                                   Text(
-                                    widget.price.toString(),
+                                    price.toString(),
                                     style: GoogleFonts.poppins(
                                         color: appColor,
                                         fontSize: 16,
@@ -369,28 +395,26 @@ class _WebDoctorDetailState extends State<WebDoctorDetail> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (builder) => AppointmentBegin(
-                                      photoURL: widget.photoURL,
-                                      fullName: widget.fullName,
-                                      rate: widget.rate,
-                                      hospitalName: widget.hospitalName,
-                                      experience: widget.experience,
-                                      review: widget.review,
-                                      about: widget.about,
-                                      department: widget.department,
-                                      doctorId: widget.doctorId,
-                                      price: widget.price.toString(),
-                                      consultantFees:
-                                          widget.consultantFees.toString(),
-                                      numberreviews:
-                                          widget.numberreviews.toString(),
+                                builder: (builder) => AppointmentBeginWeb(
+                                      photoURL: photoURL,
+                                      fullName: fullName,
+                                      rate: rate,
+                                      hospitalName: hospitalName,
+                                      experience: experience,
+                                      review: review,
+                                      about: about,
+                                      department: department,
+                                      doctorId: doctorId,
+                                      price: price.toString(),
+                                      consultantFees: consultantFees.toString(),
+                                      numberreviews: numberreviews.toString(),
                                     )));
                       }),
                 ),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
