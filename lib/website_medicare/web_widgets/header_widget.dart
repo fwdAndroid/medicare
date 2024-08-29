@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:medicare/uitls/colors.dart';
 import 'package:medicare/website_medicare/web_screens/web_auth/web_sign_in.dart';
 import 'package:medicare/website_medicare/web_screens/web_home/web_main_dashboard.dart';
+import 'package:medicare/website_medicare/web_screens/web_home/web_main_dashboard_doctors.dart';
 
 class HeaderBar extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -41,7 +42,12 @@ class HeaderBar extends StatelessWidget implements PreferredSizeWidget {
                 }),
                 _buildMenuItem('Products', () {}),
                 _buildMenuItem('Appointments', () {}),
-                _buildMenuItem('Doctors', () {}),
+                _buildMenuItem('Doctors', () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (builder) => WebMainDashboardDoctors()));
+                }),
 
                 TextButton(
                     onPressed: () async {
