@@ -390,6 +390,7 @@ class _FormSectionState extends State<FormSection> {
                           "Patient Name, Date of Birth and Patient Issue is required ",
                           context);
                     } else {
+                      print(_paitnetNameController.text);
                       Navigator.push(
                           context,
                           MaterialPageRoute(

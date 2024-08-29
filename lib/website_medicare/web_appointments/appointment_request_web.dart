@@ -259,22 +259,8 @@ class _FormSectionState extends State<FormSection> {
                         fontWeight: FontWeight.bold,
                         color: appColor),
                   ),
-                  TextFormInputField(
-                    onTap: () async {
-                      DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        lastDate: DateTime(3000),
-                        firstDate: DateTime(2015),
-                        initialDate: DateTime.now(),
-                      );
-                      if (pickedDate == null) return;
-                      _dateController.text =
-                          DateFormat('yyyy-MM-dd').format(pickedDate);
-                    },
-                    preFixICon: Icons.date_range,
+                  TextFormField(
                     controller: _dateController,
-                    hintText: "Appointment Date",
-                    textInputType: TextInputType.name,
                   ),
                 ],
               ),
@@ -291,40 +277,8 @@ class _FormSectionState extends State<FormSection> {
                         fontWeight: FontWeight.bold,
                         color: appColor),
                   ),
-                  TextFormInputField(
-                    onTap: () async {
-                      final TimeOfDay? pickedTime = await showTimePicker(
-                        context: context,
-                        initialTime: TimeOfDay.now(),
-                        builder: (BuildContext context, Widget? child) {
-                          return MediaQuery(
-                            data: MediaQuery.of(context)
-                                .copyWith(alwaysUse24HourFormat: false),
-                            child: child!,
-                          );
-                        },
-                      );
-
-                      if (pickedTime != null) {
-                        final now = DateTime.now();
-                        final selectedTime = DateTime(
-                          now.year,
-                          now.month,
-                          now.day,
-                          pickedTime.hour,
-                          pickedTime.minute,
-                        );
-
-                        setState(() {
-                          _timeController.text =
-                              DateFormat('hh:mm a').format(selectedTime);
-                        });
-                      }
-                    },
-                    preFixICon: Icons.time_to_leave,
+                  TextFormField(
                     controller: _timeController,
-                    hintText: "Appointment Time",
-                    textInputType: TextInputType.name,
                   ),
                 ],
               ),
@@ -334,15 +288,13 @@ class _FormSectionState extends State<FormSection> {
               child: SaveButton(
                 title: "Confirm Appointment",
                 onTap: () async {
+                  print("button Clocked");
                   var uuid = Uuid().v4();
                   if (_dateController.text.isEmpty ||
                       _timeController.text.isEmpty) {
                     showMessageBar(
                         "Appointment Time and Date is Required ", context);
                   } else {
-                    setState(() {
-                      isLoading = true;
-                    });
                     String photoURL =
                         await StorageMethods().uploadImageToStorage(
                       'DoctorDocument',
@@ -381,10 +333,8 @@ class _FormSectionState extends State<FormSection> {
                       //UUid
                       "uuid": uuid
                     });
-                    setState(() {
-                      isLoading = false;
-                    });
-                    Navigator.pushReplacement(
+
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (builder) => AppointmentRequestWebDone(
