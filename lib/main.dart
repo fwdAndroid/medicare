@@ -4,7 +4,6 @@ import 'package:medicare/firebase_options.dart';
 import 'package:medicare/responsive/responsive_layout.dart';
 import 'package:medicare/screens/splash_screen.dart';
 import 'package:medicare/website_medicare/check/auth_check.dart';
-import 'package:medicare/website_medicare/web_screens/web_home/web_main_dashboard.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,6 +42,8 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: MainDashboardWeb());
+        home: ResponsiveLayout(
+            mobileScreenLayout: SplashScreen(),
+            webScreenLayout: WebAuthCheck()));
   }
 }
