@@ -29,6 +29,7 @@ class AppoinmentRequestWeb extends StatefulWidget {
   final problem;
   final dob;
   final file;
+  final paitientId;
   final gender;
   AppoinmentRequestWeb({
     super.key,
@@ -45,6 +46,7 @@ class AppoinmentRequestWeb extends StatefulWidget {
     required this.numberreviews,
     required this.paitientName,
     required this.photoURL,
+    required this.paitientId,
     required this.price,
     required this.problem,
     required this.rate,
@@ -66,6 +68,7 @@ class _AppoinmentRequestWebState extends State<AppoinmentRequestWeb> {
             child: Row(
               children: [
                 FormSection(
+                  paitientId: widget.paitientId,
                   problem: widget.problem,
                   paitientName: widget.paitientName,
                   gender: widget.gender,
@@ -109,6 +112,7 @@ class FormSection extends StatefulWidget {
   final price;
   final paitientName;
   final problem;
+  final paitientId;
   final dob;
   final file;
   final gender;
@@ -121,6 +125,7 @@ class FormSection extends StatefulWidget {
     required this.department,
     required this.dob,
     required this.experience,
+    required this.paitientId,
     required this.fullName,
     required this.gender,
     required this.hospitalName,
@@ -289,6 +294,7 @@ class _FormSectionState extends State<FormSection> {
                 title: "Confirm Appointment",
                 onTap: () async {
                   print("button Clocked");
+                  print(widget.paitientId);
                   var uuid = Uuid().v4();
                   if (_dateController.text.isEmpty ||
                       _timeController.text.isEmpty) {

@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -398,6 +399,8 @@ class _FormSectionState extends State<FormSection> {
                                   file: _image,
                                   about: widget.about,
                                   doctorId: widget.doctorId,
+                                  paitientId:
+                                      FirebaseAuth.instance.currentUser!.uid,
                                   consultantFees:
                                       int.parse(widget.consultantFees),
                                   department: widget.department,

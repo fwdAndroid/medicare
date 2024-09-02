@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:medicare/screens/departments/cardiolgoy_dep.dart';
@@ -16,6 +17,20 @@ class MainDashboardWeb extends StatefulWidget {
 }
 
 class _MainDashboardWebState extends State<MainDashboardWeb> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user != null) {
+        print(user.uid);
+      } else {
+        print("User not signed in");
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
