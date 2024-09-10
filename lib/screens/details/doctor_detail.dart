@@ -5,9 +5,22 @@ import 'package:medicare/uitls/colors.dart';
 import 'package:medicare/widgets/save_button.dart';
 
 class DoctorDetail extends StatefulWidget {
-  DoctorDetail({
-    super.key,
-  });
+  final experience;
+  final name;
+  final description;
+  final uuid;
+  final doctorCategory;
+  final photo;
+  final price;
+  DoctorDetail(
+      {super.key,
+      required this.description,
+      required this.experience,
+      required this.name,
+      required this.doctorCategory,
+      required this.photo,
+      required this.price,
+      required this.uuid});
 
   @override
   State<DoctorDetail> createState() => _DoctorDetailState();
@@ -56,7 +69,7 @@ class _DoctorDetailState extends State<DoctorDetail> {
               padding: const EdgeInsets.all(8.0),
               child: CircleAvatar(
                 radius: 60,
-                backgroundImage: AssetImage("assets/doctor.png"),
+                backgroundImage: NetworkImage(widget.photo),
               ),
             ),
           ),
@@ -77,7 +90,7 @@ class _DoctorDetailState extends State<DoctorDetail> {
                     padding:
                         const EdgeInsets.only(left: 8.0, right: 8, top: 17),
                     child: Text(
-                      "Doctor Farhan Ali",
+                      widget.name,
                       style: GoogleFonts.poppins(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
@@ -88,7 +101,7 @@ class _DoctorDetailState extends State<DoctorDetail> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Column(
                         children: [
@@ -111,7 +124,7 @@ class _DoctorDetailState extends State<DoctorDetail> {
                             ),
                           ),
                           Text(
-                            "3 Years",
+                            widget.experience + " Years",
                             style: GoogleFonts.inter(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -119,78 +132,6 @@ class _DoctorDetailState extends State<DoctorDetail> {
                           ),
                           Text(
                             "Experience",
-                            style: GoogleFonts.inter(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                color: textColor),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Container(
-                            height: 45,
-                            width: 45,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: circle,
-                            ),
-                            child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(
-                                  size: 20,
-                                  Icons.star,
-                                  color: textColor,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Text(
-                            "5 Star",
-                            style: GoogleFonts.inter(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: appColor),
-                          ),
-                          Text(
-                            "Rating",
-                            style: GoogleFonts.inter(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                color: textColor),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Container(
-                            height: 45,
-                            width: 45,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: circle,
-                            ),
-                            child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(
-                                  size: 20,
-                                  Icons.reviews,
-                                  color: textColor,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Text(
-                            "20",
-                            style: GoogleFonts.inter(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: appColor),
-                          ),
-                          Text(
-                            "Reviews",
                             style: GoogleFonts.inter(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
@@ -216,7 +157,7 @@ class _DoctorDetailState extends State<DoctorDetail> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8, top: 5),
                     child: Text(
-                      "Dr. Farhan Ali Muhammad Boota is a Physiotherapist in Al Wasl, Dubai and has an experience of 3 years in this field. Dr. Farhan Ali Muhammad Boota practices at Estheva Polyclinic Llc in Al Wasl, Dubai.",
+                      widget.description,
                       style: GoogleFonts.poppins(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -256,14 +197,14 @@ class _DoctorDetailState extends State<DoctorDetail> {
                               Row(
                                 children: [
                                   Text(
-                                    "\$",
+                                    "AED",
                                     style: GoogleFonts.poppins(
                                         color: appColor,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700),
                                   ),
                                   Text(
-                                    "50\$",
+                                    " " + widget.price.toString(),
                                     style: GoogleFonts.poppins(
                                         color: appColor,
                                         fontSize: 16,
@@ -280,46 +221,6 @@ class _DoctorDetailState extends State<DoctorDetail> {
                               ),
                             ],
                           ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Follow-up fee",
-                                style: GoogleFonts.poppins(
-                                  color: dateColor,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    "\$",
-                                    style: GoogleFonts.poppins(
-                                        color: appColor,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                  Text(
-                                    "50\$",
-                                    style: GoogleFonts.poppins(
-                                        color: appColor,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                  Text(
-                                    "(within 15 Days)",
-                                    style: GoogleFonts.poppins(
-                                      color: dateColor,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )
                         ],
                       ),
                     ),
@@ -333,7 +234,14 @@ class _DoctorDetailState extends State<DoctorDetail> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (builder) => AppointmentBegin()));
+                                builder: (builder) => AppointmentBegin(
+                                      name: widget.name,
+                                      price: widget.price.toString(),
+                                      photo: widget.photo,
+                                      doctorCategory: widget.doctorCategory,
+                                      experience: widget.experience,
+                                      uuid: widget.uuid,
+                                    )));
                       }),
                 ),
               ],

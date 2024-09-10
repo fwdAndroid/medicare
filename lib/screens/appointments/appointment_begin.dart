@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,8 +13,20 @@ import 'package:medicare/widgets/save_button.dart';
 import 'package:medicare/widgets/text_form_field.dart';
 
 class AppointmentBegin extends StatefulWidget {
+  final experience;
+  final name;
+  final uuid;
+  final photo;
+  final doctorCategory;
+  final price;
   AppointmentBegin({
     super.key,
+    required this.doctorCategory,
+    required this.experience,
+    required this.name,
+    required this.price,
+    required this.photo,
+    required this.uuid,
   });
 
   @override
@@ -105,8 +118,8 @@ class _AppointmentBeginState extends State<AppointmentBegin> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.asset(
-                        "assets/doctor.png",
+                      Image.network(
+                        widget.photo,
                         height: 90,
                         width: 90,
                         fit: BoxFit.cover,
@@ -117,14 +130,14 @@ class _AppointmentBeginState extends State<AppointmentBegin> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Dr Farhan Ali",
+                              widget.name,
                               style: GoogleFonts.poppins(
                                   color: appColor,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w700),
                             ),
                             Text(
-                              "7 Years",
+                              widget.experience + " Years",
                               style: GoogleFonts.poppins(
                                 color: dateColor,
                                 fontSize: 12,
@@ -326,10 +339,30 @@ class _AppointmentBeginState extends State<AppointmentBegin> {
               child: SaveButton(
                   title: "Next",
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (builder) => AppoinmentRequest()));
+                    if (_paitnetNameController.text.isEmpty) {
+                      showMessageBar("Patient Name is Required", context);
+                    } else if (_dateController.text.isEmpty) {
+                      showMessageBar("Date of Birth is Required", context);
+                    } else if (_aboutController.text.isEmpty) {
+                      showMessageBar("Description is Required", context);
+                    } else {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (builder) => AppoinmentRequest(
+                                    paitientName:
+                                        _paitnetNameController.text.trim(),
+                                    dob: _dateController.text.trim(),
+                                    doctorUuid: widget.uuid,
+                                    doctorname: widget.name,
+                                    gender: _selectedGender,
+                                    paitientProblem:
+                                        _aboutController.text.trim(),
+                                    paitientUid:
+                                        FirebaseAuth.instance.currentUser!.uid,
+                                    uploadedDocuiment: _image ?? "",
+                                  )));
+                    }
                   }),
             )
           ],

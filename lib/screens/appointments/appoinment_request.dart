@@ -12,8 +12,24 @@ import 'package:medicare/widgets/text_form_field.dart';
 import 'package:uuid/uuid.dart';
 
 class AppoinmentRequest extends StatefulWidget {
+  final gender;
+  final dob;
+  final paitientName;
+  final doctorname;
+  final doctorUuid;
+  final paitientUid;
+  final paitientProblem;
+  final uploadedDocuiment;
   AppoinmentRequest({
     super.key,
+    required this.dob,
+    required this.doctorUuid,
+    required this.doctorname,
+    required this.gender,
+    required this.paitientName,
+    required this.paitientProblem,
+    required this.paitientUid,
+    required this.uploadedDocuiment,
   });
 
   @override
@@ -101,7 +117,7 @@ class _AppoinmentRequestState extends State<AppoinmentRequest> {
                                     fontWeight: FontWeight.w500),
                               ),
                               Text(
-                                "Fawad Kaleem",
+                                widget.paitientName,
                                 style: GoogleFonts.poppins(
                                     color: appColor,
                                     fontSize: 14,
