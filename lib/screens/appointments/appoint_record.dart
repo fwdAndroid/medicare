@@ -1,43 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:medicare/screens/videocall/video_call.dart';
 import 'package:medicare/uitls/colors.dart';
 
-class AppointmentDetail extends StatefulWidget {
-  const AppointmentDetail({
-    super.key,
-  });
+class RecordsHistory extends StatefulWidget {
+  const RecordsHistory({super.key});
 
   @override
-  State<AppointmentDetail> createState() => _AppointmentDetailState();
+  State<RecordsHistory> createState() => _RecordsHistoryState();
 }
 
-class _AppointmentDetailState extends State<AppointmentDetail> {
+class _RecordsHistoryState extends State<RecordsHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (builder) => VideoCall(
-                              friendName: "widget.doctorName",
-                              callingid: "widget.doctorid")));
-                },
-                icon: Icon(
-                  Icons.video_call,
-                  color: mainColor,
-                )),
-          )
-        ],
         centerTitle: true,
         title: Text(
-          "Appointment History",
+          "Records",
           style: GoogleFonts.poppins(fontSize: 18, color: appColor),
         ),
       ),
@@ -272,8 +251,96 @@ class _AppointmentDetailState extends State<AppointmentDetail> {
 
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Image.asset("assets/gen.png"),
-          )
+            child: Container(
+              height: 200,
+              width: 360,
+              decoration: BoxDecoration(
+                color: white,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Patient Records",
+                        style: GoogleFonts.poppins(
+                            color: appColor,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4.0, left: 8),
+                      child: Row(
+                        children: [
+                          Text(
+                            "File Name:     ", // Display the formatted date
+                            style: GoogleFonts.poppins(
+                              color: appColor,
+                              fontSize: 14,
+                            ),
+                          ),
+                          Text(
+                            "BloodSample.pdf",
+                            style: GoogleFonts.poppins(
+                              color: dateColor,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4.0, left: 8),
+                      child: Row(
+                        children: [
+                          Text(
+                            "XRAY:     ", // Display the formatted date
+                            style: GoogleFonts.poppins(
+                              color: appColor,
+                              fontSize: 14,
+                            ),
+                          ),
+                          Text(
+                            "xray.png",
+                            style: GoogleFonts.poppins(
+                              color: dateColor,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4.0, left: 8),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Patient Problem:     ", // Display the formatted date
+                            style: GoogleFonts.poppins(
+                              color: appColor,
+                              fontSize: 14,
+                            ),
+                          ),
+                          Text(
+                            "Cough",
+                            style: GoogleFonts.poppins(
+                              color: dateColor,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    TextButton(onPressed: () {}, child: Text("Upload Document"))
+                  ],
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

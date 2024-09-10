@@ -1,17 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:medicare/screens/departments/allergy_dep.dart';
-import 'package:medicare/screens/departments/cardiolgoy_dep.dart';
-import 'package:medicare/screens/departments/dent_dep.dart';
-import 'package:medicare/screens/departments/gest_dep.dart';
-import 'package:medicare/screens/departments/gynalogy_dep.dart';
-import 'package:medicare/screens/departments/nero_dep.dart';
-import 'package:medicare/screens/departments/pedro_dep.dart';
-import 'package:medicare/screens/departments/uro_dep.dart';
-import 'package:medicare/screens/details/doctor_detail.dart';
+import 'package:medicare/screens/details/product_detail.dart';
 import 'package:medicare/uitls/colors.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,64 +12,41 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final List<String> imgList = [
+    'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
+    'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
+    'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
+    'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89719a0d55dd05e2deae4120227e6efc&auto=format&fit=crop&w=1953&q=80',
+    'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
+    'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: white,
+        endDrawer: Drawer(),
         appBar: AppBar(
-          leading: StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection("users")
-                  .doc(FirebaseAuth.instance.currentUser!.uid)
-                  .snapshots(),
-              builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                }
-                if (!snapshot.hasData || snapshot.data == null) {
-                  return Center(child: Text('No data available'));
-                }
-                var snap = snapshot.data;
-                return CircleAvatar(
-                  backgroundImage: NetworkImage(snap['photoURL']),
-                );
-              }),
-          title: StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection("users")
-                  .doc(FirebaseAuth.instance.currentUser!.uid)
-                  .snapshots(),
-              builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                }
-                if (!snapshot.hasData || snapshot.data == null) {
-                  return Center(child: Text('No data available'));
-                }
-                var snap = snapshot.data;
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Hello!",
-                      style: GoogleFonts.poppins(color: appColor, fontSize: 14),
-                    ),
-                    Text(
-                      snap['fullName'],
-                      style: GoogleFonts.poppins(
-                          color: appColor,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ],
-                );
-              }),
-          automaticallyImplyLeading: false,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(Icons.notifications),
-            )
-          ],
+          elevation: 0,
+          iconTheme: IconThemeData(color: white),
+          backgroundColor: mainColor,
+          leading: CircleAvatar(
+            backgroundImage: AssetImage("assets/logos.png"),
+          ),
+          centerTitle: true,
+          title: TextField(
+            decoration: InputDecoration(
+              fillColor: white,
+              filled: true,
+              border: InputBorder.none,
+              prefixIcon: Icon(
+                Icons.search,
+                color: hintColor,
+              ),
+              hintText: "Search by Doctor name or department",
+              hintStyle: GoogleFonts.poppins(fontSize: 14, color: hintColor),
+            ),
+          ),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -86,480 +54,443 @@ class _HomePageState extends State<HomePage> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: white,
-                    border: InputBorder.none,
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: hintColor,
-                    ),
-                    hintText: "Search by Doctor name or department",
-                    hintStyle:
-                        GoogleFonts.poppins(fontSize: 14, color: hintColor),
-                    errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(4),
-                        ),
-                        borderSide: BorderSide(color: borderColor)),
-                    focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(4),
-                        ),
-                        borderSide: BorderSide(color: borderColor)),
-                    disabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(4),
-                        ),
-                        borderSide: BorderSide(color: borderColor)),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(4),
-                        ),
-                        borderSide: BorderSide(color: borderColor)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(4),
-                        ),
-                        borderSide: BorderSide(color: borderColor)),
+                child: Container(
+                    child: CarouselSlider(
+                  options: CarouselOptions(
+                    aspectRatio: 2.0,
+                    enlargeCenterPage: true,
+                    scrollDirection: Axis.horizontal,
+                    autoPlay: true,
                   ),
-                ),
+                  items: imgList
+                      .map((item) => Container(
+                            child: Container(
+                              margin: EdgeInsets.all(5.0),
+                              child: ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Image.network(item,
+                                          fit: BoxFit.cover, width: 1000.0),
+                                      Positioned(
+                                        bottom: 0.0,
+                                        left: 0.0,
+                                        right: 0.0,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                Color.fromARGB(200, 0, 0, 0),
+                                                Color.fromARGB(0, 0, 0, 0)
+                                              ],
+                                              begin: Alignment.bottomCenter,
+                                              end: Alignment.topCenter,
+                                            ),
+                                          ),
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 10.0, horizontal: 20.0),
+                                          child: Text(
+                                            'No. ${imgList.indexOf(item)} image',
+                                            style: TextStyle(
+                                              color: white,
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                            ),
+                          ))
+                      .toList(),
+                )),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  'Services we offer',
+                  'Body Contouring Packages',
                   style: GoogleFonts.poppins(
                       color: appColor,
                       fontSize: 16,
-                      fontWeight: FontWeight.w600),
+                      fontWeight: FontWeight.w800),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Row(
-                  children: [
-                    Card(
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            "assets/logo.png",
-                            height: 100,
-                            width: 100,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                bottom: 8.0, top: 8, left: 8, right: 8),
-                            child: Text(
-                              'Instant \n Consultation',
-                              style: GoogleFonts.poppins(
-                                  color: appColor,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 8.0,
-                            ),
-                            child: Text(
-                              'Start from 50\$',
-                              style: GoogleFonts.poppins(
-                                  color: textColor,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w600),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Card(
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            "assets/logo.png",
-                            height: 100,
-                            width: 100,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                bottom: 8.0, top: 8, left: 8, right: 8),
-                            child: Text(
-                              'Book a \n Specialist',
-                              style: GoogleFonts.poppins(
-                                  color: appColor,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 8.0,
-                            ),
-                            child: Text(
-                              'Start from 100\$',
-                              style: GoogleFonts.poppins(
-                                  color: textColor,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w600),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Card(
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            "assets/logo.png",
-                            height: 100,
-                            width: 100,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                bottom: 8.0, top: 8, left: 8, right: 8),
-                            child: Text(
-                              'Order \n Medicine',
-                              style: GoogleFonts.poppins(
-                                  color: appColor,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 8.0,
-                            ),
-                            child: Text(
-                              'Delivery In 1 hour',
-                              style: GoogleFonts.poppins(
-                                  color: textColor,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w600),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        bottom: 8.0, top: 8, left: 8, right: 8),
-                    child: Text(
-                      'Departments',
-                      style: GoogleFonts.poppins(
-                          color: appColor,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        bottom: 8.0, top: 8, left: 8, right: 8),
-                    child: Text(
-                      'See All',
-                      style: GoogleFonts.poppins(
-                          color: mainColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (builder) => NeroDep()));
-                    },
-                    child: Image.asset(
-                      "assets/nero.png",
-                      height: 95,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (builder) => CardiolgoyDep()));
-                    },
-                    child: Image.asset(
-                      "assets/card.png",
-                      height: 95,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (builder) => GynalogyDep()));
-                    },
-                    child: Image.asset(
-                      "assets/gyn.png",
-                      height: 95,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (builder) => PedroDep()));
-                    },
-                    child: Image.asset(
-                      "assets/ped.png",
-                      height: 95,
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (builder) => AllergyDep()));
-                    },
-                    child: Image.asset(
-                      "assets/aller.png",
-                      height: 95,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (builder) => DentistDep()));
-                    },
-                    child: Image.asset(
-                      "assets/dent.png",
-                      height: 95,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (builder) => UroDep()));
-                    },
-                    child: Image.asset(
-                      "assets/uro.png",
-                      height: 95,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (builder) => GestDep()));
-                    },
-                    child: Image.asset(
-                      "assets/gestrology.png",
-                      height: 95,
-                    ),
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        bottom: 8.0, top: 8, left: 8, right: 8),
-                    child: Text(
-                      'Top Doctors',
-                      style: GoogleFonts.poppins(
-                          color: appColor,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        bottom: 8.0, top: 8, left: 8, right: 8),
-                    child: Text(
-                      'See All',
-                      style: GoogleFonts.poppins(
-                          color: mainColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
               ),
               SizedBox(
-                height: 236,
+                height: 160,
                 width: MediaQuery.of(context).size.width,
-                child: StreamBuilder(
-                    stream: FirebaseFirestore.instance
-                        .collection("doctors")
-                        .where("uid",
-                            isNotEqualTo:
-                                FirebaseAuth.instance.currentUser!.uid)
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      if (snapshot.data!.docs.isEmpty) {
-                        return Center(
-                          child: Text(
-                            "No Doctor Available",
-                            style: TextStyle(color: black),
-                          ),
-                        );
-                      }
-                      return ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: snapshot.data!.docs.length,
-                          itemBuilder: (context, index) {
-                            final List<DocumentSnapshot> documents =
-                                snapshot.data!.docs;
-                            final Map<String, dynamic> data =
-                                documents[index].data() as Map<String, dynamic>;
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (builder) => DoctorDetail(
-                                              photoURL: data['photoURL'],
-                                              fullName: data['fullName'],
-                                              rate: data['rate'],
-                                              hospitalName:
-                                                  data['hospitalName'],
-                                              experience: data['experience'],
-                                              review: data['review'],
-                                              about: data['about'],
-                                              price: data['price'].toString(),
-                                              consultantFees:
-                                                  data['consultantFees']
-                                                      .toString(),
-                                              numberreviews:
-                                                  data['numberreviews']
-                                                      .toString(),
-                                              department: data['department'],
-                                              doctorId: data['uid'],
-                                            )));
-                              },
-                              child: Card(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      height: 140,
-                                      child: Stack(
-                                        children: [
-                                          Image.network(
-                                            data['photoURL'],
-                                            width: 100,
-                                            height: 100,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Icon(
-                                                  Icons.circle,
-                                                  color: mainColor,
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 4.0, top: 8, right: 4),
-                                      child: Text(
-                                        data['fullName'],
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 12, color: appColor),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 4.0, right: 4),
-                                      child: Text(
-                                        data['department'],
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 12, color: textColor),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 4.0, right: 4, bottom: 4),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.star,
-                                                color: Colors.yellow,
-                                              ),
-                                              const SizedBox(
-                                                width: 6,
-                                              ),
-                                              Text(
-                                                "5.0",
-                                                style: GoogleFonts.poppins(
-                                                    fontSize: 12,
-                                                    color: textColor),
-                                              ),
-                                              Text(
-                                                "(150)",
-                                                style: GoogleFonts.poppins(
-                                                    fontSize: 12,
-                                                    color: textColor),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            width: 61,
-                                          ),
-                                          Align(
-                                              alignment: Alignment.topRight,
-                                              child:
-                                                  Icon(Icons.favorite_outline))
-                                        ],
-                                      ),
-                                    ),
-                                  ],
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return SizedBox(
+                        width: 200,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (builder) => ProductDetail()));
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Image.asset(
+                                width: MediaQuery.of(context).size.width,
+                                "assets/body.png",
+                                height: 75,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 8.0, left: 8, right: 8),
+                                child: Text(
+                                  '2D Ultrasound Cavitation + RF + Vacu Slimming Treatment',
+                                  style: TextStyle(
+                                      color: appColor,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600),
                                 ),
                               ),
-                            );
-                          });
+                              Center(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 8.0, top: 8),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xffD3D3D3),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        '200 AED',
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                            color: mainColor,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'IV Drips Therapy',
+                  style: GoogleFonts.poppins(
+                      color: appColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w800),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: 160,
+                width: MediaQuery.of(context).size.width,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return SizedBox(
+                        width: 200,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (builder) => ProductDetail()));
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Image.asset(
+                                width: MediaQuery.of(context).size.width,
+                                "assets/body.png",
+                                height: 75,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 8.0, left: 8, right: 8),
+                                child: Text(
+                                  '2D Ultrasound Cavitation + RF + Vacu Slimming Treatment',
+                                  style: TextStyle(
+                                      color: appColor,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                              Center(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 8.0, top: 8),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xffD3D3D3),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        '200 AED',
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                            color: mainColor,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'IV Drips Therapy Packages',
+                  style: GoogleFonts.poppins(
+                      color: appColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w800),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: 160,
+                width: MediaQuery.of(context).size.width,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return SizedBox(
+                        width: 200,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (builder) => ProductDetail()));
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Image.asset(
+                                width: MediaQuery.of(context).size.width,
+                                "assets/body.png",
+                                height: 75,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 8.0, left: 8, right: 8),
+                                child: Text(
+                                  '2D Ultrasound Cavitation + RF + Vacu Slimming Treatment',
+                                  style: TextStyle(
+                                      color: appColor,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                              Center(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 8.0, top: 8),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xffD3D3D3),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        '200 AED',
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                            color: mainColor,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Health Checkup',
+                  style: GoogleFonts.poppins(
+                      color: appColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w800),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: 160,
+                width: MediaQuery.of(context).size.width,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return SizedBox(
+                        width: 200,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (builder) => ProductDetail()));
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                width: MediaQuery.of(context).size.width,
+                                "assets/body.png",
+                                height: 75,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 8.0, left: 8, right: 8),
+                                child: Text(
+                                  '2D Ultrasound Cavitation + RF + Vacu Slimming Treatment',
+                                  style: TextStyle(
+                                      color: appColor,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                              Center(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 8.0, top: 8),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xffD3D3D3),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        '200 AED',
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                            color: mainColor,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Physiotherapy',
+                  style: GoogleFonts.poppins(
+                      color: appColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w800),
+                ),
+              ),
+              SizedBox(
+                height: 160,
+                width: MediaQuery.of(context).size.width,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return SizedBox(
+                        width: 200,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (builder) => ProductDetail()));
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Image.asset(
+                                width: MediaQuery.of(context).size.width,
+                                "assets/body.png",
+                                height: 75,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 8.0, left: 8, right: 8),
+                                child: Text(
+                                  '2D Ultrasound Cavitation + RF + Vacu Slimming Treatment',
+                                  style: TextStyle(
+                                      color: appColor,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                              Center(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 8.0, top: 8),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xffD3D3D3),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        '200 AED',
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                            color: mainColor,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
                     }),
               ),
             ],

@@ -6,44 +6,8 @@ import 'package:medicare/screens/main/main_dashboard.dart';
 import 'package:medicare/uitls/colors.dart';
 
 class AppointmentRequestDone extends StatefulWidget {
-  final appointmentDate;
-  final appointmentId;
-  final appointmentTime;
-  final doctorDepartment;
-  final doctorExperience;
-  final doctorFees;
-  final doctorName;
-  final doctorPhoto;
-  final paitientName;
-  final doctorid;
-  final patientId;
-  final patientDob;
-  final patientDocument;
-  final patientGender;
-  final patientProblem;
-  final rate;
-  final review;
-  final appointmentStatus;
   const AppointmentRequestDone({
     super.key,
-    required this.appointmentDate,
-    required this.appointmentId,
-    required this.appointmentStatus,
-    required this.appointmentTime,
-    required this.doctorDepartment,
-    required this.doctorExperience,
-    required this.doctorFees,
-    required this.doctorName,
-    required this.doctorPhoto,
-    required this.doctorid,
-    required this.paitientName,
-    required this.patientDob,
-    required this.patientDocument,
-    required this.patientGender,
-    required this.patientId,
-    required this.patientProblem,
-    required this.rate,
-    required this.review,
   });
 
   @override
@@ -127,26 +91,7 @@ class _AppointmentRequestDoneState extends State<AppointmentRequestDone> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (builder) => AppointmentDetail(
-                                    doctorDepartment: widget.doctorDepartment,
-                                    appointmentDate: widget.appointmentDate,
-                                    appointmentId: widget.appointmentId,
-                                    doctorExperience: widget.doctorExperience,
-                                    doctorFees: widget.doctorFees,
-                                    appointmentTime: widget.appointmentTime,
-                                    doctorName: widget.doctorName,
-                                    doctorPhoto: widget.doctorPhoto,
-                                    doctorid: widget.doctorid,
-                                    paitientName: widget.paitientName,
-                                    patientDob: widget.patientDob,
-                                    patientDocument: widget.patientDocument,
-                                    patientGender: widget.patientGender,
-                                    patientId: widget.patientId,
-                                    patientProblem: widget.patientProblem,
-                                    rate: widget.rate,
-                                    review: widget.review,
-                                    appointmentStatus:
-                                        widget.appointmentStatus)));
+                                builder: (builder) => AppointmentDetail()));
                       },
                       child: Image.asset(
                         "assets/view.png",

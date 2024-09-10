@@ -12,32 +12,9 @@ import 'package:medicare/widgets/save_button.dart';
 import 'package:medicare/widgets/text_form_field.dart';
 
 class AppointmentBegin extends StatefulWidget {
-  final fullName;
-  final experience;
-  final about;
-  final doctorId;
-  final department;
-  final photoURL;
-  int rate;
-  final review;
-  final hospitalName;
-  final numberreviews;
-  final consultantFees;
-  final price;
-  AppointmentBegin(
-      {super.key,
-      required this.about,
-      required this.consultantFees,
-      required this.doctorId,
-      required this.experience,
-      required this.fullName,
-      required this.hospitalName,
-      required this.department,
-      required this.numberreviews,
-      required this.photoURL,
-      required this.price,
-      required this.rate,
-      required this.review});
+  AppointmentBegin({
+    super.key,
+  });
 
   @override
   State<AppointmentBegin> createState() => _AppointmentBeginState();
@@ -128,8 +105,8 @@ class _AppointmentBeginState extends State<AppointmentBegin> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.network(
-                        widget.photoURL,
+                      Image.asset(
+                        "assets/doctor.png",
                         height: 90,
                         width: 90,
                         fit: BoxFit.cover,
@@ -140,14 +117,14 @@ class _AppointmentBeginState extends State<AppointmentBegin> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              widget.fullName,
+                              "Dr Farhan Ali",
                               style: GoogleFonts.poppins(
                                   color: appColor,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w700),
                             ),
                             Text(
-                              widget.department,
+                              "7 Years",
                               style: GoogleFonts.poppins(
                                 color: dateColor,
                                 fontSize: 12,
@@ -175,7 +152,7 @@ class _AppointmentBeginState extends State<AppointmentBegin> {
                               children: List.generate(5, (index) {
                                 return Icon(
                                   Icons.star,
-                                  color: index < widget.rate
+                                  color: index < 5
                                       ? Colors.yellow[600]
                                       : Colors.grey[400], // Colored stars
                                 );
@@ -349,37 +326,10 @@ class _AppointmentBeginState extends State<AppointmentBegin> {
               child: SaveButton(
                   title: "Next",
                   onTap: () {
-                    if (_paitnetNameController.text.isEmpty ||
-                        _aboutController.text.isEmpty ||
-                        _dateController.text.isEmpty) {
-                      showMessageBar(
-                          "Patient Name, Date of Birth and Patient Issue is required ",
-                          context);
-                    } else {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (builder) => AppoinmentRequest(
-                                  file: _image,
-                                  about: widget.about,
-                                  doctorId: widget.doctorId,
-                                  consultantFees:
-                                      int.parse(widget.consultantFees),
-                                  department: widget.department,
-                                  dob: _dateController.text,
-                                  experience: widget.experience,
-                                  fullName: widget.fullName,
-                                  gender: _selectedGender,
-                                  hospitalName: widget.hospitalName,
-                                  numberreviews:
-                                      int.parse(widget.numberreviews),
-                                  paitientName: _paitnetNameController.text,
-                                  photoURL: widget.photoURL,
-                                  price: int.parse(widget.price),
-                                  problem: _aboutController.text,
-                                  rate: widget.rate,
-                                  review: widget.review)));
-                    }
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (builder) => AppoinmentRequest()));
                   }),
             )
           ],

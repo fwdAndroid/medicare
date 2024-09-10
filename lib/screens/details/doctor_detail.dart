@@ -5,32 +5,8 @@ import 'package:medicare/uitls/colors.dart';
 import 'package:medicare/widgets/save_button.dart';
 
 class DoctorDetail extends StatefulWidget {
-  final fullName;
-  final experience;
-  final about;
-  final photoURL;
-  final rate;
-  final review;
-  final hospitalName;
-  final numberreviews;
-  final consultantFees;
-  final doctorId;
-  final price;
-  final department;
   DoctorDetail({
     super.key,
-    required this.fullName,
-    required this.experience,
-    required this.rate,
-    required this.review,
-    required this.hospitalName,
-    required this.about,
-    required this.numberreviews,
-    required this.department,
-    required this.doctorId,
-    required this.price,
-    required this.consultantFees,
-    required this.photoURL,
   });
 
   @override
@@ -80,7 +56,7 @@ class _DoctorDetailState extends State<DoctorDetail> {
               padding: const EdgeInsets.all(8.0),
               child: CircleAvatar(
                 radius: 60,
-                backgroundImage: NetworkImage(widget.photoURL),
+                backgroundImage: AssetImage("assets/doctor.png"),
               ),
             ),
           ),
@@ -101,23 +77,11 @@ class _DoctorDetailState extends State<DoctorDetail> {
                     padding:
                         const EdgeInsets.only(left: 8.0, right: 8, top: 17),
                     child: Text(
-                      widget.fullName,
+                      "Doctor Farhan Ali",
                       style: GoogleFonts.poppins(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                           color: appColor),
-                    ),
-                  ),
-                ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8, top: 8),
-                    child: Text(
-                      widget.hospitalName,
-                      style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: textColor),
                     ),
                   ),
                 ),
@@ -147,7 +111,7 @@ class _DoctorDetailState extends State<DoctorDetail> {
                             ),
                           ),
                           Text(
-                            widget.experience.toString() + " " + "Years",
+                            "3 Years",
                             style: GoogleFonts.inter(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -183,7 +147,7 @@ class _DoctorDetailState extends State<DoctorDetail> {
                             ),
                           ),
                           Text(
-                            widget.rate.toString(),
+                            "5 Star",
                             style: GoogleFonts.inter(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -219,7 +183,7 @@ class _DoctorDetailState extends State<DoctorDetail> {
                             ),
                           ),
                           Text(
-                            widget.numberreviews.toString(),
+                            "20",
                             style: GoogleFonts.inter(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -252,7 +216,7 @@ class _DoctorDetailState extends State<DoctorDetail> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8, top: 5),
                     child: Text(
-                      widget.about,
+                      "Dr. Farhan Ali Muhammad Boota is a Physiotherapist in Al Wasl, Dubai and has an experience of 3 years in this field. Dr. Farhan Ali Muhammad Boota practices at Estheva Polyclinic Llc in Al Wasl, Dubai.",
                       style: GoogleFonts.poppins(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -299,7 +263,7 @@ class _DoctorDetailState extends State<DoctorDetail> {
                                         fontWeight: FontWeight.w700),
                                   ),
                                   Text(
-                                    widget.consultantFees.toString(),
+                                    "50\$",
                                     style: GoogleFonts.poppins(
                                         color: appColor,
                                         fontSize: 16,
@@ -339,7 +303,7 @@ class _DoctorDetailState extends State<DoctorDetail> {
                                         fontWeight: FontWeight.w700),
                                   ),
                                   Text(
-                                    widget.price.toString(),
+                                    "50\$",
                                     style: GoogleFonts.poppins(
                                         color: appColor,
                                         fontSize: 16,
@@ -369,22 +333,7 @@ class _DoctorDetailState extends State<DoctorDetail> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (builder) => AppointmentBegin(
-                                      photoURL: widget.photoURL,
-                                      fullName: widget.fullName,
-                                      rate: widget.rate,
-                                      hospitalName: widget.hospitalName,
-                                      experience: widget.experience,
-                                      review: widget.review,
-                                      about: widget.about,
-                                      department: widget.department,
-                                      doctorId: widget.doctorId,
-                                      price: widget.price.toString(),
-                                      consultantFees:
-                                          widget.consultantFees.toString(),
-                                      numberreviews:
-                                          widget.numberreviews.toString(),
-                                    )));
+                                builder: (builder) => AppointmentBegin()));
                       }),
                 ),
               ],

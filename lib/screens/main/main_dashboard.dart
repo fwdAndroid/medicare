@@ -4,7 +4,7 @@ import 'package:medicare/screens/main/pages/appointment_page.dart';
 import 'package:medicare/screens/main/pages/doctor_page.dart';
 import 'package:medicare/screens/main/pages/history_page.dart';
 import 'package:medicare/screens/main/pages/home_page.dart';
-import 'package:medicare/screens/main/pages/medicine_page.dart';
+import 'package:medicare/screens/nutritions/nutritions.dart';
 import 'package:medicare/uitls/colors.dart';
 
 class MainDashboard extends StatefulWidget {
@@ -18,9 +18,9 @@ class _MainDashboardState extends State<MainDashboard> {
   final List<Widget> _screens = [
     HomePage(),
     DoctorPage(),
-    MedicinePage(),
     AppointmentPage(),
     HistoryPage(),
+    Nutritions()
   ];
 
   @override
@@ -73,21 +73,6 @@ class _MainDashboardState extends State<MainDashboard> {
               BottomNavigationBarItem(
                 icon: _currentIndex == 2
                     ? Image.asset(
-                        "assets/medic_blue.png",
-                        height: 18,
-                        width: 20,
-                      )
-                    : Image.asset(
-                        "assets/medic_grey.png",
-                        height: 18,
-                        width: 20,
-                      ),
-                label: 'Medicine',
-                backgroundColor: white,
-              ),
-              BottomNavigationBarItem(
-                icon: _currentIndex == 3
-                    ? Image.asset(
                         "assets/calender_blue.png",
                         height: 18,
                         width: 20,
@@ -101,7 +86,7 @@ class _MainDashboardState extends State<MainDashboard> {
                 backgroundColor: white,
               ),
               BottomNavigationBarItem(
-                icon: _currentIndex == 4
+                icon: _currentIndex == 3
                     ? Image.asset(
                         "assets/history_blue.png",
                         height: 18,
@@ -111,6 +96,16 @@ class _MainDashboardState extends State<MainDashboard> {
                         "assets/history_medic.png",
                         height: 18,
                         width: 20,
+                      ),
+                label: 'History',
+                backgroundColor: white,
+              ),
+              BottomNavigationBarItem(
+                icon: _currentIndex == 4
+                    ? Icon(Icons.nature_outlined, color: mainColor)
+                    : Icon(
+                        Icons.nature_people_outlined,
+                        color: Colors.grey,
                       ),
                 label: 'History',
                 backgroundColor: white,

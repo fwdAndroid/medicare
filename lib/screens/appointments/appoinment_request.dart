@@ -12,42 +12,8 @@ import 'package:medicare/widgets/text_form_field.dart';
 import 'package:uuid/uuid.dart';
 
 class AppoinmentRequest extends StatefulWidget {
-  final fullName;
-  final experience;
-  final about;
-  final department;
-  final photoURL;
-  int rate;
-  final doctorId;
-  final review;
-  final hospitalName;
-  final numberreviews;
-  final consultantFees;
-  final price;
-  final paitientName;
-  final problem;
-  final dob;
-  final file;
-  final gender;
   AppoinmentRequest({
     super.key,
-    required this.file,
-    required this.doctorId,
-    required this.about,
-    required this.consultantFees,
-    required this.department,
-    required this.dob,
-    required this.experience,
-    required this.fullName,
-    required this.gender,
-    required this.hospitalName,
-    required this.numberreviews,
-    required this.paitientName,
-    required this.photoURL,
-    required this.price,
-    required this.problem,
-    required this.rate,
-    required this.review,
   });
 
   @override
@@ -114,8 +80,8 @@ class _AppoinmentRequestState extends State<AppoinmentRequest> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.memory(
-                      widget.file,
+                    Image.asset(
+                      "assets/logos.png",
                       height: 90,
                       width: 90,
                       fit: BoxFit.cover,
@@ -135,7 +101,7 @@ class _AppoinmentRequestState extends State<AppoinmentRequest> {
                                     fontWeight: FontWeight.w500),
                               ),
                               Text(
-                                widget.paitientName,
+                                "Fawad Kaleem",
                                 style: GoogleFonts.poppins(
                                     color: appColor,
                                     fontSize: 14,
@@ -153,7 +119,7 @@ class _AppoinmentRequestState extends State<AppoinmentRequest> {
                                     fontWeight: FontWeight.w500),
                               ),
                               Text(
-                                widget.dob,
+                                "23/23/23",
                                 style: GoogleFonts.poppins(
                                     color: appColor,
                                     fontSize: 14,
@@ -162,7 +128,7 @@ class _AppoinmentRequestState extends State<AppoinmentRequest> {
                             ],
                           ),
                           Text(
-                            widget.problem,
+                            "Cough",
                             style: GoogleFonts.poppins(
                               color: dateColor,
                               fontSize: 12,
@@ -270,81 +236,10 @@ class _AppoinmentRequestState extends State<AppoinmentRequest> {
                   child: SaveButton(
                     title: "Confirm Appointment",
                     onTap: () async {
-                      var uuid = Uuid().v4();
-                      if (_dateController.text.isEmpty ||
-                          _timeController.text.isEmpty) {
-                        showMessageBar(
-                            "Appointment Time and Date is Required ", context);
-                      } else {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        String photoURL =
-                            await StorageMethods().uploadImageToStorage(
-                          'DoctorDocument',
-                          widget.file,
-                        );
-                        await FirebaseFirestore.instance
-                            .collection("appointments")
-                            .doc(uuid)
-                            .set({
-                          //Time
-                          "appointmentId": uuid,
-                          "appointmentDate": _dateController.text,
-                          "appointmentTime": _timeController.text,
-                          //Patient
-                          "patientId": FirebaseAuth.instance.currentUser!.uid,
-                          "patientProblem": widget.problem,
-                          "patientDocument": photoURL,
-                          "patientGender": widget.gender,
-                          "patientDob": widget.dob,
-                          "paitientName": widget.paitientName,
-
-                          //Doctors
-                          "doctorName": widget.fullName,
-                          "doctorFees": widget.price,
-                          "doctorPhoto": widget.photoURL,
-                          "doctorDepartment": widget.department,
-                          "doctorExperience": widget.experience,
-                          "doctorid": widget.doctorId,
-
-                          //Status
-                          "appointmentStatus": "send",
-
-                          //Rate and Review
-                          "rate": widget.rate,
-                          "review": widget.review,
-                          //UUid
-                          "uuid": uuid
-                        });
-                        setState(() {
-                          isLoading = false;
-                        });
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (builder) => AppointmentRequestDone(
-                                      appointmentDate: _dateController.text,
-                                      appointmentId: uuid,
-                                      appointmentStatus: "send",
-                                      appointmentTime: _timeController.text,
-                                      doctorDepartment: widget.department,
-                                      doctorExperience: widget.experience,
-                                      doctorFees: widget.price,
-                                      doctorName: widget.fullName,
-                                      doctorPhoto: widget.photoURL,
-                                      doctorid: widget.doctorId,
-                                      patientDob: widget.dob,
-                                      patientDocument: photoURL,
-                                      patientGender: widget.gender,
-                                      paitientName: widget.paitientName,
-                                      patientId: FirebaseAuth
-                                          .instance.currentUser!.uid,
-                                      patientProblem: widget.problem,
-                                      rate: widget.rate,
-                                      review: widget.review,
-                                    )));
-                      }
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (builder) => AppointmentRequestDone()));
                     },
                   ),
                 ),

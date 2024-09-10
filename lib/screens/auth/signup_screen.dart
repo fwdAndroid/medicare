@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -238,38 +239,10 @@ class _SignupScreenState extends State<SignupScreen> {
                   : SaveButton(
                       title: "Sign Up",
                       onTap: () async {
-                        if (_image == null) {
-                          showMessageBar("Photo is required", context);
-                        } else if (_nameController.text.isEmpty) {
-                          showMessageBar(
-                              "Name of the user is required", context);
-                        } else if (_emailController.text.isEmpty) {
-                          showMessageBar("Email is required", context);
-                        } else if (_passwordController.text.isEmpty) {
-                          showMessageBar("Password is required ", context);
-                        } else if (_contactController.text.isEmpty) {
-                          showMessageBar(
-                              "Contact Number is required ", context);
-                        } else {
-                          setState(() {
-                            isLoading = true;
-                          });
-                          await AuthMethods().signUpUser(
-                              isblocked: false,
-                              email: _emailController.text.trim(),
-                              pass: _passwordController.text.trim(),
-                              username: _nameController.text.trim(),
-                              contact: _contactController.text.trim(),
-                              file: _image!);
-                          setState(() {
-                            isLoading = false;
-                          });
-                          showMessageBar("Registration Complete", context);
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (builder) => MainDashboard()));
-                        }
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (builder) => MainDashboard()));
                       },
                     ),
             ),

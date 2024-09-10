@@ -2,9 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:medicare/screens/departments/cardiolgoy_dep.dart';
-import 'package:medicare/screens/departments/gynalogy_dep.dart';
-import 'package:medicare/screens/departments/nero_dep.dart';
+
 import 'package:medicare/uitls/colors.dart';
 import 'package:medicare/website_medicare/web_detail/web_doctor_detail.dart';
 import 'package:medicare/website_medicare/web_widgets/header_widget.dart';
@@ -48,220 +46,220 @@ class _MainDashboardWebState extends State<MainDashboardWeb> {
               textAlign: TextAlign.center,
             ),
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (builder) => NeroDep()));
-                    },
-                    child: Column(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.asset(
-                            "assets/neroweb.png",
-                            height: 150,
-                          ),
-                        ),
-                        Text(
-                          "Neurology",
-                          style: GoogleFonts.inter(color: black),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (builder) => CardiolgoyDep()));
-                    },
-                    child: Column(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.asset(
-                            "assets/heart_web.png",
-                            height: 150,
-                          ),
-                        ),
-                        Text(
-                          "Cardiology",
-                          style: GoogleFonts.inter(color: black),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (builder) => GynalogyDep()));
-                    },
-                    child: Column(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.asset(
-                            "assets/ss.png",
-                            height: 150,
-                          ),
-                        ),
-                        Text(
-                          "Gynecology",
-                          style: GoogleFonts.inter(color: black),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (builder) => GynalogyDep()));
-                    },
-                    child: Column(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.asset(
-                            "assets/p_web.png",
-                            height: 150,
-                          ),
-                        ),
-                        Text(
-                          "Pediatrics",
-                          style: GoogleFonts.inter(color: black),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (builder) => GynalogyDep()));
-                    },
-                    child: Column(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.asset(
-                            "assets/al_web.png",
-                            height: 150,
-                          ),
-                        ),
-                        Text(
-                          "Allergy",
-                          style: GoogleFonts.inter(color: black),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (builder) => GynalogyDep()));
-                    },
-                    child: Column(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.asset(
-                            "assets/dentist_web.png",
-                            height: 150,
-                          ),
-                        ),
-                        Text(
-                          "Dentist",
-                          style: GoogleFonts.inter(color: black),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (builder) => GynalogyDep()));
-                    },
-                    child: Column(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.asset(
-                            "assets/uro_web.png",
-                            height: 150,
-                          ),
-                        ),
-                        Text(
-                          "Urology",
-                          style: GoogleFonts.inter(color: black),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (builder) => GynalogyDep()));
-                    },
-                    child: Column(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.asset(
-                            "assets/uro_web.png",
-                            height: 150,
-                          ),
-                        ),
-                        Text(
-                          "Gestrology",
-                          style: GoogleFonts.inter(color: black),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // SingleChildScrollView(
+          //   scrollDirection: Axis.horizontal,
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       Padding(
+          //         padding: const EdgeInsets.all(8.0),
+          //         child: GestureDetector(
+          //           onTap: () {
+          //             Navigator.push(context,
+          //                 MaterialPageRoute(builder: (builder) => NeroDep()));
+          //           },
+          //           child: Column(
+          //             children: [
+          //               ClipRRect(
+          //                 borderRadius: BorderRadius.circular(20),
+          //                 child: Image.asset(
+          //                   "assets/neroweb.png",
+          //                   height: 150,
+          //                 ),
+          //               ),
+          //               Text(
+          //                 "Neurology",
+          //                 style: GoogleFonts.inter(color: black),
+          //               )
+          //             ],
+          //           ),
+          //         ),
+          //       ),
+          //       Padding(
+          //         padding: const EdgeInsets.all(8.0),
+          //         child: GestureDetector(
+          //           onTap: () {
+          //             Navigator.push(
+          //                 context,
+          //                 MaterialPageRoute(
+          //                     builder: (builder) => CardiolgoyDep()));
+          //           },
+          //           child: Column(
+          //             children: [
+          //               ClipRRect(
+          //                 borderRadius: BorderRadius.circular(20),
+          //                 child: Image.asset(
+          //                   "assets/heart_web.png",
+          //                   height: 150,
+          //                 ),
+          //               ),
+          //               Text(
+          //                 "Cardiology",
+          //                 style: GoogleFonts.inter(color: black),
+          //               )
+          //             ],
+          //           ),
+          //         ),
+          //       ),
+          //       Padding(
+          //         padding: const EdgeInsets.all(8.0),
+          //         child: GestureDetector(
+          //           onTap: () {
+          //             Navigator.push(
+          //                 context,
+          //                 MaterialPageRoute(
+          //                     builder: (builder) => GynalogyDep()));
+          //           },
+          //           child: Column(
+          //             children: [
+          //               ClipRRect(
+          //                 borderRadius: BorderRadius.circular(20),
+          //                 child: Image.asset(
+          //                   "assets/ss.png",
+          //                   height: 150,
+          //                 ),
+          //               ),
+          //               Text(
+          //                 "Gynecology",
+          //                 style: GoogleFonts.inter(color: black),
+          //               )
+          //             ],
+          //           ),
+          //         ),
+          //       ),
+          //       Padding(
+          //         padding: const EdgeInsets.all(8.0),
+          //         child: GestureDetector(
+          //           onTap: () {
+          //             Navigator.push(
+          //                 context,
+          //                 MaterialPageRoute(
+          //                     builder: (builder) => GynalogyDep()));
+          //           },
+          //           child: Column(
+          //             children: [
+          //               ClipRRect(
+          //                 borderRadius: BorderRadius.circular(20),
+          //                 child: Image.asset(
+          //                   "assets/p_web.png",
+          //                   height: 150,
+          //                 ),
+          //               ),
+          //               Text(
+          //                 "Pediatrics",
+          //                 style: GoogleFonts.inter(color: black),
+          //               )
+          //             ],
+          //           ),
+          //         ),
+          //       ),
+          //       Padding(
+          //         padding: const EdgeInsets.all(8.0),
+          //         child: GestureDetector(
+          //           onTap: () {
+          //             Navigator.push(
+          //                 context,
+          //                 MaterialPageRoute(
+          //                     builder: (builder) => GynalogyDep()));
+          //           },
+          //           child: Column(
+          //             children: [
+          //               ClipRRect(
+          //                 borderRadius: BorderRadius.circular(20),
+          //                 child: Image.asset(
+          //                   "assets/al_web.png",
+          //                   height: 150,
+          //                 ),
+          //               ),
+          //               Text(
+          //                 "Allergy",
+          //                 style: GoogleFonts.inter(color: black),
+          //               )
+          //             ],
+          //           ),
+          //         ),
+          //       ),
+          //       Padding(
+          //         padding: const EdgeInsets.all(8.0),
+          //         child: GestureDetector(
+          //           onTap: () {
+          //             Navigator.push(
+          //                 context,
+          //                 MaterialPageRoute(
+          //                     builder: (builder) => GynalogyDep()));
+          //           },
+          //           child: Column(
+          //             children: [
+          //               ClipRRect(
+          //                 borderRadius: BorderRadius.circular(20),
+          //                 child: Image.asset(
+          //                   "assets/dentist_web.png",
+          //                   height: 150,
+          //                 ),
+          //               ),
+          //               Text(
+          //                 "Dentist",
+          //                 style: GoogleFonts.inter(color: black),
+          //               )
+          //             ],
+          //           ),
+          //         ),
+          //       ),
+          //       Padding(
+          //         padding: const EdgeInsets.all(8.0),
+          //         child: GestureDetector(
+          //           onTap: () {
+          //             Navigator.push(
+          //                 context,
+          //                 MaterialPageRoute(
+          //                     builder: (builder) => GynalogyDep()));
+          //           },
+          //           child: Column(
+          //             children: [
+          //               ClipRRect(
+          //                 borderRadius: BorderRadius.circular(20),
+          //                 child: Image.asset(
+          //                   "assets/uro_web.png",
+          //                   height: 150,
+          //                 ),
+          //               ),
+          //               Text(
+          //                 "Urology",
+          //                 style: GoogleFonts.inter(color: black),
+          //               )
+          //             ],
+          //           ),
+          //         ),
+          //       ),
+          //       Padding(
+          //         padding: const EdgeInsets.all(8.0),
+          //         child: GestureDetector(
+          //           onTap: () {
+          //             Navigator.push(
+          //                 context,
+          //                 MaterialPageRoute(
+          //                     builder: (builder) => GynalogyDep()));
+          //           },
+          //           child: Column(
+          //             children: [
+          //               ClipRRect(
+          //                 borderRadius: BorderRadius.circular(20),
+          //                 child: Image.asset(
+          //                   "assets/uro_web.png",
+          //                   height: 150,
+          //                 ),
+          //               ),
+          //               Text(
+          //                 "Gestrology",
+          //                 style: GoogleFonts.inter(color: black),
+          //               )
+          //             ],
+          //           ),
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           Padding(
             padding:
                 const EdgeInsets.only(bottom: 8.0, top: 8, left: 8, right: 8),
