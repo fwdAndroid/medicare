@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:medicare/screens/appointments/appointment_request_done.dart';
@@ -19,7 +20,8 @@ class AppoinmentRequest extends StatefulWidget {
   final doctorUuid;
   final paitientUid;
   final paitientProblem;
-  final uploadedDocuiment;
+  final uploadedDocument;
+  final price;
   AppoinmentRequest({
     super.key,
     required this.dob,
@@ -27,9 +29,10 @@ class AppoinmentRequest extends StatefulWidget {
     required this.doctorname,
     required this.gender,
     required this.paitientName,
+    required this.price,
     required this.paitientProblem,
     required this.paitientUid,
-    required this.uploadedDocuiment,
+    required this.uploadedDocument,
   });
 
   @override
@@ -39,7 +42,9 @@ class AppoinmentRequest extends StatefulWidget {
 class _AppoinmentRequestState extends State<AppoinmentRequest> {
   TextEditingController _dateController = TextEditingController();
   TextEditingController _timeController = TextEditingController();
+  TextEditingController _endTimeController = TextEditingController();
   bool isLoading = false;
+  var uuid = Uuid().v4();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,7 +140,7 @@ class _AppoinmentRequestState extends State<AppoinmentRequest> {
                                     fontWeight: FontWeight.w500),
                               ),
                               Text(
-                                "23/23/23",
+                                widget.dob,
                                 style: GoogleFonts.poppins(
                                     color: appColor,
                                     fontSize: 14,
@@ -144,7 +149,7 @@ class _AppoinmentRequestState extends State<AppoinmentRequest> {
                             ],
                           ),
                           Text(
-                            "Cough",
+                            widget.paitientProblem,
                             style: GoogleFonts.poppins(
                               color: dateColor,
                               fontSize: 12,
@@ -196,7 +201,7 @@ class _AppoinmentRequestState extends State<AppoinmentRequest> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Select Appointment Time",
+                  "Start Appointment Time",
                   style: GoogleFonts.manrope(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -240,6 +245,56 @@ class _AppoinmentRequestState extends State<AppoinmentRequest> {
               ],
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0, right: 8, bottom: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "End Appointment Time",
+                  style: GoogleFonts.manrope(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: appColor),
+                ),
+                TextFormInputField(
+                  onTap: () async {
+                    final TimeOfDay? pickedTime = await showTimePicker(
+                      context: context,
+                      initialTime: TimeOfDay.now(),
+                      builder: (BuildContext context, Widget? child) {
+                        return MediaQuery(
+                          data: MediaQuery.of(context)
+                              .copyWith(alwaysUse24HourFormat: false),
+                          child: child!,
+                        );
+                      },
+                    );
+
+                    if (pickedTime != null) {
+                      final now = DateTime.now();
+                      final selectedTime = DateTime(
+                        now.year,
+                        now.month,
+                        now.day,
+                        pickedTime.hour,
+                        pickedTime.minute,
+                      );
+
+                      setState(() {
+                        _endTimeController.text =
+                            DateFormat('hh:mm a').format(selectedTime);
+                      });
+                    }
+                  },
+                  preFixICon: Icons.time_to_leave,
+                  controller: _endTimeController,
+                  hintText: "Appointment Time",
+                  textInputType: TextInputType.name,
+                ),
+              ],
+            ),
+          ),
           const Spacer(),
           isLoading
               ? Center(
@@ -252,10 +307,50 @@ class _AppoinmentRequestState extends State<AppoinmentRequest> {
                   child: SaveButton(
                     title: "Confirm Appointment",
                     onTap: () async {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (builder) => AppointmentRequestDone()));
+                      if (_dateController.text.isEmpty) {
+                        showMessageBar("Appointment Date is Required", context);
+                      } else if (_timeController.text.isEmpty) {
+                        showMessageBar("Appointment Time is Required", context);
+                      } else if (_endTimeController.text.isEmpty) {
+                        showMessageBar(
+                            "Appointment End Time is Required", context);
+                      } else {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        String photoURL =
+                            await StorageMethods().uploadImageToStorage(
+                          'ProfilePics',
+                          widget.uploadedDocument,
+                        );
+                        await FirebaseFirestore.instance
+                            .collection("doctor_appointment")
+                            .doc(uuid)
+                            .set({
+                          "appointmentDate": _dateController.text.trim(),
+                          "appointmentStartTime": _timeController.text.trim(),
+                          "appointmentEndTime": _endTimeController.text.trim(),
+                          "paitientName": widget.paitientName,
+                          "paitientProblem": widget.paitientProblem,
+                          "file": photoURL ?? "",
+                          "doctorName": widget.doctorname,
+                          "status": "confirm",
+                          "price": int.parse(widget.price),
+                          "paitientUid": FirebaseAuth.instance.currentUser!.uid,
+                          "doctorId": widget.doctorUuid,
+                          "appointmentId": uuid,
+                          "paitientDate": widget.dob,
+                          "gender": widget.gender
+                        });
+                        setState(() {
+                          isLoading = false;
+                        });
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (builder) =>
+                                    AppointmentRequestDone()));
+                      }
                     },
                   ),
                 ),

@@ -360,7 +360,8 @@ class _AppointmentBeginState extends State<AppointmentBegin> {
                                         _aboutController.text.trim(),
                                     paitientUid:
                                         FirebaseAuth.instance.currentUser!.uid,
-                                    uploadedDocuiment: _image ?? "",
+                                    uploadedDocument: _image ?? "",
+                                    price: widget.price.toString(),
                                   )));
                     }
                   }),
