@@ -1,4 +1,4 @@
-package com.estheva_user.app
+package com.user.app
 
 import io.flutter.embedding.android.FlutterActivity
 
