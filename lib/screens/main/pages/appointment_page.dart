@@ -38,7 +38,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
               fontSize: 14,
               fontWeight: FontWeight.w300,
             ),
-            tabs: <Widget>[
+            tabs: const <Widget>[
               Tab(
                 text: "Upcoming",
               ),
@@ -52,7 +52,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
           ),
         ),
         body: const TabBarView(
-          children: <Widget>[Upcomming(), Completed(), Cancelled()],
+          children: <Widget>[Upcoming(), Completed(), Cancelled()],
         ),
       ),
     );
