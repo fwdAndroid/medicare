@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:medicare/chose.dart';
 import 'package:medicare/screens/auth/signup_screen.dart';
 import 'package:medicare/screens/main/main_dashboard.dart';
 import 'package:medicare/services/auth_methods.dart';
@@ -207,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (builder) => MainDashboard()));
+                                    builder: (builder) => ChoseFunction()));
                           }
                         }),
                   ),
