@@ -5,7 +5,7 @@ class UserModel {
   String email;
   String password;
   String fullName;
-  String photoURL;
+  // String photoURL;
   String contactNumber;
   bool isblocked;
   final review;
@@ -18,7 +18,7 @@ class UserModel {
     required this.password,
     required this.rate,
     required this.review,
-    required this.photoURL,
+    // required this.photoURL,
     required this.contactNumber,
     required this.fullName,
   });
@@ -33,7 +33,7 @@ class UserModel {
         'email': email,
         'password': password,
         'contactNumber': contactNumber,
-        'photoURL': photoURL
+        // 'photoURL': photoURL
       };
 
   ///
@@ -47,7 +47,7 @@ class UserModel {
       uid: snapshot['uid'],
       isblocked: snapshot['isblocked'],
       email: snapshot['email'],
-      photoURL: snapshot['photoURL'],
+      // photoURL: snapshot['photoURL'],
       password: snapshot['password'],
       contactNumber: snapshot['contactNumber'],
     );

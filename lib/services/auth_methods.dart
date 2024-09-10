@@ -19,33 +19,35 @@ class AuthMethods {
 // }
 
   //Register Provider
-  Future<String> signUpUser(
-      {required String email,
-      required String pass,
-      required String contact,
-      required String username,
-      required bool isblocked,
-      required Uint8List file}) async {
+  Future<String> signUpUser({
+    required String email,
+    required String pass,
+    required String contact,
+    required String username,
+    required bool isblocked,
+    // required Uint8List file
+  }) async {
     String res = 'Wrong Email or Password';
     try {
       if (email.isNotEmpty || pass.isNotEmpty || username.isNotEmpty) {
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
             email: email, password: pass);
-        String photoURL = await StorageMethods().uploadImageToStorage(
-          'ProfilePics',
-          file,
-        );
+        // String photoURL = await StorageMethods().uploadImageToStorage(
+        //   'ProfilePics',
+        //   file,
+        // );
         //Add User to the database with modal
         UserModel userModel = UserModel(
-            isblocked: false,
-            rate: 0,
-            review: {},
-            fullName: username,
-            uid: cred.user!.uid,
-            email: email,
-            contactNumber: contact,
-            password: pass,
-            photoURL: photoURL);
+          isblocked: false,
+          rate: 0,
+          review: {},
+          fullName: username,
+          uid: cred.user!.uid,
+          email: email,
+          contactNumber: contact,
+          password: pass,
+          // photoURL: photoURL
+        );
         await firebaseFirestore
             .collection('users')
             .doc(cred.user!.uid)

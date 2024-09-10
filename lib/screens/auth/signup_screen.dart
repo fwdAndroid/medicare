@@ -41,6 +41,15 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: white),
+        backgroundColor: mainColor,
+        title: Text(
+          "Create Account",
+          style: TextStyle(color: white),
+        ),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -48,23 +57,23 @@ class _SignupScreenState extends State<SignupScreen> {
             const SizedBox(
               height: 30,
             ),
-            GestureDetector(
-              onTap: () => selectImage(),
-              child: Stack(
-                children: [
-                  _image != null
-                      ? CircleAvatar(
-                          radius: 59, backgroundImage: MemoryImage(_image!))
-                      : GestureDetector(
-                          onTap: () => selectImage(),
-                          child: CircleAvatar(
-                            radius: 59,
-                            backgroundImage: AssetImage('assets/person.png'),
-                          ),
-                        ),
-                ],
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () => selectImage(),
+            //   child: Stack(
+            //     children: [
+            //       _image != null
+            //           ? CircleAvatar(
+            //               radius: 59, backgroundImage: MemoryImage(_image!))
+            //           : GestureDetector(
+            //               onTap: () => selectImage(),
+            //               child: CircleAvatar(
+            //                 radius: 59,
+            //                 backgroundImage: AssetImage('assets/person.png'),
+            //               ),
+            //             ),
+            //     ],
+            //   ),
+            // ),
             Column(
               children: [
                 Padding(
@@ -239,10 +248,36 @@ class _SignupScreenState extends State<SignupScreen> {
                   : SaveButton(
                       title: "Sign Up",
                       onTap: () async {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (builder) => MainDashboard()));
+                        if (_nameController.text.isEmpty) {
+                          showMessageBar(
+                              "Name of the user is required", context);
+                        } else if (_emailController.text.isEmpty) {
+                          showMessageBar("Email is required", context);
+                        } else if (_passwordController.text.isEmpty) {
+                          showMessageBar("Password is required ", context);
+                        } else if (_contactController.text.isEmpty) {
+                          showMessageBar(
+                              "Contact Number is required ", context);
+                        } else {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          await AuthMethods().signUpUser(
+                            isblocked: false,
+                            email: _emailController.text.trim(),
+                            pass: _passwordController.text.trim(),
+                            username: _nameController.text.trim(),
+                            contact: _contactController.text.trim(),
+                          );
+                          setState(() {
+                            isLoading = false;
+                          });
+                          showMessageBar("Registration Complete", context);
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (builder) => MainDashboard()));
+                        }
                       },
                     ),
             ),

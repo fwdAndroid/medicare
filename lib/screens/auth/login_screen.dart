@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:medicare/screens/auth/signup_screen.dart';
@@ -8,7 +6,6 @@ import 'package:medicare/services/auth_methods.dart';
 import 'package:medicare/uitls/colors.dart';
 import 'package:medicare/uitls/message_utils.dart';
 import 'package:medicare/widgets/save_button.dart';
-import 'package:social_login_buttons/social_login_buttons.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -190,10 +187,27 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: SaveButton(
                         title: "Login",
                         onTap: () async {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (builder) => MainDashboard()));
+                          if (_emailController.text.isEmpty ||
+                              _passwordController.text.isEmpty) {
+                            showMessageBar(
+                                "Email and Password is Required", context);
+                          } else {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            await AuthMethods().loginUpUser(
+                              email: _emailController.text.trim(),
+                              pass: _emailController.text.trim(),
+                            );
+
+                            setState(() {
+                              isLoading = false;
+                            });
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (builder) => MainDashboard()));
+                          }
                         }),
                   ),
             GestureDetector(

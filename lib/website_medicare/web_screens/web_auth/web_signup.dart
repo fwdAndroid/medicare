@@ -233,12 +233,13 @@ class _FormSectionState extends State<_FormSection> {
                           _isLoading = true;
                         });
                         await AuthMethods().signUpUser(
-                            isblocked: false,
-                            email: _emailController.text.trim(),
-                            pass: _passwordController.text.trim(),
-                            username: _nameController.text.trim(),
-                            contact: _contactController.text.trim(),
-                            file: _image!);
+                          isblocked: false,
+                          email: _emailController.text.trim(),
+                          pass: _passwordController.text.trim(),
+                          username: _nameController.text.trim(),
+                          contact: _contactController.text.trim(),
+                          // file: _image!
+                        );
                         setState(() {
                           _isLoading = false;
                         });
