@@ -21,6 +21,7 @@ class AppoinmentRequest extends StatefulWidget {
   final paitientUid;
   final paitientProblem;
   final uploadedDocument;
+  final contactNumber;
   final price;
   AppoinmentRequest({
     super.key,
@@ -28,6 +29,7 @@ class AppoinmentRequest extends StatefulWidget {
     required this.doctorUuid,
     required this.doctorname,
     required this.gender,
+    required this.contactNumber,
     required this.paitientName,
     required this.price,
     required this.paitientProblem,
@@ -327,6 +329,7 @@ class _AppoinmentRequestState extends State<AppoinmentRequest> {
                             .collection("doctor_appointment")
                             .doc(uuid)
                             .set({
+                          "paitientContact": widget.contactNumber,
                           "appointmentDate": _dateController.text.trim(),
                           "appointmentStartTime": _timeController.text.trim(),
                           "appointmentEndTime": _endTimeController.text.trim(),

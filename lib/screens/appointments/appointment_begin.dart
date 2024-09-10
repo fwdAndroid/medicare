@@ -62,6 +62,7 @@ class _AppointmentBeginState extends State<AppointmentBegin> {
     TextEditingController _paitnetNameController = TextEditingController();
     TextEditingController _dateController = TextEditingController();
     TextEditingController _aboutController = TextEditingController();
+    TextEditingController _phoneController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -193,6 +194,24 @@ class _AppointmentBeginState extends State<AppointmentBegin> {
                     controller: _paitnetNameController,
                     hintText: "Patient Name",
                     textInputType: TextInputType.name,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Contact Number",
+                    style: GoogleFonts.poppins(
+                        fontSize: 14, fontWeight: FontWeight.w400),
+                  ),
+                  TextFormInputField(
+                    controller: _phoneController,
+                    hintText: "Contact Number",
+                    textInputType: TextInputType.number,
                   ),
                 ],
               ),
@@ -345,11 +364,14 @@ class _AppointmentBeginState extends State<AppointmentBegin> {
                       showMessageBar("Date of Birth is Required", context);
                     } else if (_aboutController.text.isEmpty) {
                       showMessageBar("Description is Required", context);
+                    } else if (_phoneController.text.isEmpty) {
+                      showMessageBar("Contact Number is Required", context);
                     } else {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (builder) => AppoinmentRequest(
+                                    contactNumber: _phoneController.text.trim(),
                                     paitientName:
                                         _paitnetNameController.text.trim(),
                                     dob: _dateController.text.trim(),
