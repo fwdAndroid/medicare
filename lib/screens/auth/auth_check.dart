@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:medicare/chose.dart';
 import 'package:medicare/screens/auth/login_screen.dart';
 import 'package:medicare/screens/main/main_dashboard.dart';
 
@@ -15,7 +16,7 @@ class AuthCheck extends StatelessWidget {
           );
         } else if (snapshot.hasData) {
           // If user is logged in, navigate to MainDashboard
-          return MainDashboard();
+          return ChoseFunction();
         } else {
           // If not logged in, navigate to LoginScreen
           return LoginScreen();

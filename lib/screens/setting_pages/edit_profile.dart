@@ -119,10 +119,7 @@ class _EditProfileState extends State<EditProfile> {
                         child: SaveButton(
                             title: "Confirm",
                             onTap: () async {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (builder) => MainDashboard()));
+                              Navigator.pop(context);
                             }),
                       ),
               ),

@@ -8,6 +8,8 @@ import 'package:medicare/screens/nutritions/nutritions.dart';
 import 'package:medicare/uitls/colors.dart';
 
 class MainDashboard extends StatefulWidget {
+  String type;
+  MainDashboard({super.key, required this.type});
   @override
   _MainDashboardState createState() => _MainDashboardState();
 }
@@ -15,16 +17,17 @@ class MainDashboard extends StatefulWidget {
 class _MainDashboardState extends State<MainDashboard> {
   int _currentIndex = 0;
 
-  final List<Widget> _screens = [
-    HomePage(),
-    DoctorPage(),
-    AppointmentPage(),
-    HistoryPage(),
-    Nutritions()
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _screens = [
+      HomePage(
+        type: widget.type,
+      ),
+      DoctorPage(),
+      AppointmentPage(),
+      HistoryPage(),
+      Nutritions()
+    ];
     return WillPopScope(
         onWillPop: () async {
           final shouldPop = await _showExitDialog(context);

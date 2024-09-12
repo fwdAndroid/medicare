@@ -75,7 +75,9 @@ class _AppointmentRequestDoneState extends State<AppointmentRequestDone> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (builder) => MainDashboard()));
+                                builder: (builder) => MainDashboard(
+                                      type: "home",
+                                    )));
                       },
                       child: Image.asset(
                         "assets/home.png",

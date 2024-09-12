@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:medicare/chose.dart';
 import 'package:medicare/screens/auth/login_screen.dart';
 import 'package:medicare/screens/main/main_dashboard.dart';
 import 'package:medicare/services/auth_methods.dart';
@@ -276,7 +277,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (builder) => MainDashboard()));
+                                  builder: (builder) => ChoseFunction()));
                         }
                       },
                     ),
