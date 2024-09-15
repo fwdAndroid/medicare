@@ -45,6 +45,7 @@ dependencies:
   share: ^2.0.4
   social_login_buttons: ^1.0.7
   uuid: ^4.4.2
+  video_player: ^2.9.1
   zego_uikit_prebuilt_call: ^4.14.3
 
 dev_dependencies:

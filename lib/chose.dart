@@ -29,81 +29,31 @@ class _ChoseFunctionState extends State<ChoseFunction> {
           Center(
             child: Image.asset(
               "assets/newlogo.png",
-              height: 200,
+              height: 170,
             ),
           ),
-          Row(
+          Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GestureDetector(
                 onTap: () => _navigateToServices('home'),
-                child: Card(
-                  color: Color(0xffFF2896),
-                  child: SizedBox(
-                    height: 150,
-                    width: 150,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(
-                            Icons.home,
-                            size: 50,
-                            color: white,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Home \n Services",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+                child: SizedBox(
+                    height: 170,
+                    width: 170,
+                    child: Image.asset(
+                      "assets/blue.png",
+                      fit: BoxFit.cover,
+                    )),
               ),
               GestureDetector(
                 onTap: () => _navigateToServices('clinic'),
-                child: Card(
-                  color: mainColor,
-                  child: SizedBox(
-                    height: 150,
-                    width: 150,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(
-                            color: white,
-                            Icons.medical_services_outlined,
-                            size: 50,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Clinic \n Services",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+                child: SizedBox(
+                    height: 170,
+                    width: 170,
+                    child: Image.asset(
+                      "assets/pink.png",
+                      fit: BoxFit.cover,
+                    )),
               ),
             ],
           )
