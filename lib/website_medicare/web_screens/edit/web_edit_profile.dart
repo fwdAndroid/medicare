@@ -196,10 +196,7 @@ class _FormSectionState extends State<_FormSection> {
                             setState(() {
                               _isLoading = false;
                             });
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (builder) => MainDashboardWeb()));
+                            Navigator.pop(context);
                           }),
                     ),
             ),

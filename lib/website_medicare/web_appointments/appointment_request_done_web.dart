@@ -211,10 +211,7 @@ class _FormSectionState extends State<FormSection> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (builder) => MainDashboardWeb()));
+                      Navigator.pop(context);
                     },
                     child: Image.asset(
                       "assets/home.png",

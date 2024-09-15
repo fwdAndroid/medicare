@@ -39,7 +39,9 @@ class HeaderBar extends StatelessWidget implements PreferredSizeWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (builder) => MainDashboardWeb()));
+                          builder: (builder) => MainDashboardWeb(
+                                type: "clinic",
+                              )));
                 }),
                 _buildMenuItem('Products', () {}),
                 _buildMenuItem('Appointments', () {}),

@@ -1,15 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:medicare/services/auth_methods.dart';
 import 'package:medicare/uitls/colors.dart';
 import 'package:medicare/uitls/message_utils.dart';
+import 'package:medicare/website_medicare/web_screens/web_auth/chose_function_web.dart';
 import 'package:medicare/website_medicare/web_screens/web_auth/web_forgot_password.dart';
 import 'package:medicare/website_medicare/web_screens/web_auth/web_signup.dart';
-import 'package:medicare/website_medicare/web_screens/web_home/web_main_dashboard.dart';
 import 'package:medicare/widgets/save_button.dart';
-import 'package:social_login_buttons/social_login_buttons.dart';
 
 class WebSignInPage extends StatelessWidget {
   const WebSignInPage({Key? key}) : super(key: key);
@@ -160,11 +157,10 @@ class _FormSectionState extends State<_FormSection> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (builder) => MainDashboardWeb()));
+                              builder: (builder) => ChoseFunctionWeb()));
                     }
                   },
                 ),
-        
           const SizedBox(height: 20),
           Align(
             alignment: Alignment.topRight,

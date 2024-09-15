@@ -7,7 +7,8 @@ import 'package:medicare/services/auth_methods.dart';
 import 'package:medicare/uitls/colors.dart';
 import 'package:medicare/uitls/image_utils.dart';
 import 'package:medicare/uitls/message_utils.dart';
-import 'package:medicare/website_medicare/web_screens/web_home/web_main_dashboard.dart';
+import 'package:medicare/website_medicare/web_screens/web_auth/chose_function_web.dart';
+import 'package:medicare/website_medicare/web_screens/web_auth/web_sign_in.dart';
 import 'package:medicare/widgets/save_button.dart';
 
 class WebSignup extends StatelessWidget {
@@ -230,7 +231,7 @@ class _FormSectionState extends State<_FormSection> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (builder) => MainDashboardWeb()));
+                                builder: (builder) => ChoseFunctionWeb()));
                       }
                     },
                   ),
@@ -243,8 +244,10 @@ class _FormSectionState extends State<_FormSection> {
                   width: 154,
                   child: TextButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (builder) => WebSignup()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (builder) => WebSignInPage()));
                     },
                     child: Text(
                       "Already Have An Account",
