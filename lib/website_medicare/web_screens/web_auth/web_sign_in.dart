@@ -164,63 +164,7 @@ class _FormSectionState extends State<_FormSection> {
                     }
                   },
                 ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              "assets/or.png",
-              height: 20,
-            ),
-          ),
-          isGoogle
-              ? Center(
-                  child: CircularProgressIndicator(
-                    color: mainColor,
-                  ),
-                )
-              : Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8),
-                  child: SocialLoginButton(
-                    text: "Continue with Google",
-                    buttonType: SocialLoginButtonType.google,
-                    onPressed: () {
-                      AuthMethods().signInWithGoogle().then((value) async {
-                        setState(() {
-                          isGoogle = true;
-                        });
-                        User? user = FirebaseAuth.instance.currentUser;
-
-                        // Check if user data exists in Firestore
-
-                        // If user data doesn't exist, store it
-
-                        // Set user data in Firestore
-                        await FirebaseFirestore.instance
-                            .collection("users")
-                            .doc(user?.uid)
-                            .set({
-                          "photoURL": user?.photoURL?.toString(),
-                          "email": user?.email,
-                          "isblocked": false,
-                          "fullName": user?.displayName,
-                          "contactNumber":
-                              user?.phoneNumber ?? "No Number Available",
-                          "uid": user?.uid,
-                          "password": "Auto Take Password",
-                          "rate": 0,
-                          "review": {}
-                        });
-
-                        setState(() {
-                          isGoogle = false;
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (builder) => MainDashboardWeb()));
-                        });
-                      });
-                    },
-                  ),
-                ),
+        
           const SizedBox(height: 20),
           Align(
             alignment: Alignment.topRight,

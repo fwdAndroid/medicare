@@ -57,7 +57,7 @@ class _FormSectionState extends State<_FormSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 448,
+      width: 500,
       padding: const EdgeInsets.symmetric(horizontal: 50),
       child: SingleChildScrollView(
         child: Column(
@@ -68,23 +68,6 @@ class _FormSectionState extends State<_FormSection> {
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25.63),
             ),
             const SizedBox(height: 41),
-            GestureDetector(
-              onTap: () => selectImage(),
-              child: Stack(
-                children: [
-                  _image != null
-                      ? CircleAvatar(
-                          radius: 59, backgroundImage: MemoryImage(_image!))
-                      : GestureDetector(
-                          onTap: () => selectImage(),
-                          child: CircleAvatar(
-                            radius: 59,
-                            backgroundImage: AssetImage('assets/person.png'),
-                          ),
-                        ),
-                ],
-              ),
-            ),
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
